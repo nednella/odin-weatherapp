@@ -8,7 +8,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/template.html',
-            title: 'Spotify Clone Application',
+            title: 'The Odin Project: Weather App',
         }),
     ],
     module: {
