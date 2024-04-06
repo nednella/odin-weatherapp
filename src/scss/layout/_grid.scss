@@ -1,0 +1,30 @@
+// Grid
+
+$grid-header-height: 70px;
+$grid-footer-height: 70px;
+
+body {
+    font-size: 16px;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+}
+
+#grid-container {
+    height: 100%;
+    width: 100%;
+    padding: 0 48px;
+    // background: linear-gradient(
+    //     to bottom,
+    //     black 0%,
+    //     rgb(8, 8, 49) 60%,
+    //     rgb(21, 27, 56) 100%,
+    // )
+    background-color: rgb(24, 24, 44);
+    display: grid;
+    grid-template-rows: $grid-header-height 1fr $grid-footer-height;
+    grid-template-areas:
+        "header"
+        "content"
+        "footer";
+}
