@@ -7,7 +7,7 @@
     color: #000;
 
     .search-bar-container {
-        padding: 10px 8px 8px 8px;  // 10px blanket fix for off-center text
+        padding: 10px 8px 8px 8px; // 10px blanket fix for off-center text
 
         display: grid;
         grid-template-columns: max-content 1fr max-content;
@@ -21,7 +21,7 @@
         }
     }
 
-    #search-suggestions {
+    .search-suggestions {
         background-color: #fff;
         border-radius: 0 0 8px 8px;
 
@@ -33,7 +33,7 @@
             align-items: center;
             gap: 8px;
 
-            >:first-child {
+            > :first-child {
                 padding-left: 8px;
                 color: #bebebe;
             }
@@ -45,4 +45,8 @@
             border-radius: 0 0 8px 8px;
         }
     }
+}
+
+.hidden {
+    display: none;
 }
