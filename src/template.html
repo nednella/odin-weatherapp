@@ -10,16 +10,37 @@
 <body>
 <div id="grid-container">
     <header>
-        <div class="logo">Logo</div>
+        <div class="logo">Weather App Logo</div>
         <div class="buttons">Buttons</div>
     </header>
     <div id="content">
-        <div class="heading">Website Name</div>
-        <div id="search-bar">
-            <input
-                type="text"
-                placeholder="Search Location"
-            >
+        <div class="heading">Weather App</div>
+        <div class="search">
+            <div class="search-bar-container" style="width: 360px;">
+                <span class="material-symbols-rounded">search</span>
+                <input
+                    id="search-bar"
+                    type="text"
+                    placeholder="Search Location"
+                    autocomplete="off"
+                    autocapitalize="on"
+                >
+                <span class="search-clear material-symbols-rounded">close</span>
+            </div>
+            <div id="search-suggestions">
+                <div class="suggestion-item">
+                    <span class="material-symbols-rounded">search</span>
+                    <span>Test item 1</span>
+                </div>
+                <div class="suggestion-item">
+                    <span class="material-symbols-rounded">search</span>
+                    <span>Test item 2</span>
+                </div>
+                <div class="suggestion-item">
+                    <span class="material-symbols-rounded">search</span>
+                    <span>Test item 3</span>
+                </div>
+            </div>
         </div>
     </div>
     <footer>
