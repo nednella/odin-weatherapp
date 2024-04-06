@@ -1,4 +1,4 @@
-import element from './Utilities.js'
+import { createElement } from './Utilities.js'
 
 export default class searchBar {
     constructor(width) {
@@ -15,37 +15,35 @@ export default class searchBar {
     }
 
     createSearchBar(width) {
-        const search = element('div', {
+        const search = createElement('div', {
             classList: 'search',
             id: this.id,
             style: `width: ${width}px`,
         })
 
-        const searchBarContainer = search.appendChild(
-            element('div', {
+        search.append(
+            createElement('div', {
                 classList: 'search-bar-container',
-            })
-        )
-
-        const searchSuggestions = search.appendChild(
-            element('div', {
+            }),
+            createElement('div', {
                 classList: 'search-suggestions',
             })
         )
 
+        const searchBarContainer = search.querySelector('.search-bar-container')
         searchBarContainer.append(
-            element('span', {
+            createElement('span', {
                 classList: 'material-symbols-rounded',
                 textContent: 'search',
             }),
-            element('input', {
+            createElement('input', {
                 type: 'text',
                 classList: 'search-bar',
                 placeholder: 'Search Location',
                 autocomplete: 'off',
                 autocapitalize: 'on',
             }),
-            element('span', {
+            createElement('span', {
                 classList: 'search-clear material-symbols-rounded hidden',
                 textContent: 'close',
             })
@@ -79,6 +77,7 @@ export default class searchBar {
                 : searchClear.classList.add('hidden')
 
             // TODO: Add search API and append searchSuggestions with each wildcard match
+
             console.log(e.target.value)
         })
 
@@ -93,13 +92,13 @@ export default class searchBar {
     }
 
     createSuggestionItem(content) {
-        const item = element('div', { classList: 'suggestion-item' })
+        const item = createElement('div', { classList: 'suggestion-item' })
         item.append(
-            element('span', {
+            createElement('span', {
                 classList: 'material-symbols-rounded',
                 textContent: 'search',
             }),
-            element('span', {
+            createElement('span', {
                 textContent: `${content}`,
             })
         )

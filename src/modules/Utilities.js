@@ -1,4 +1,4 @@
-const element = (tag, props = {}) =>
-    Object.assign(document.createElement(tag), props)
+// Utility functions
 
-export default element
+export const createElement = (type, properties = {}) =>
+    Object.assign(document.createElement(type), properties)

@@ -1,5 +1,5 @@
 import searchBar from './searchBar.js'
-import element from './Utilities.js'
+import { createElement } from './Utilities.js'
 
 export default class UI {
     constructor() {
@@ -27,7 +27,7 @@ export default class UI {
 
         const content = document.getElementById('content')
         content.append(
-            element('div', {
+            createElement('div', {
                 classList: 'heading',
                 textContent: 'Weather App',
             }),
