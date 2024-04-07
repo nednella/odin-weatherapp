@@ -1,6 +1,7 @@
 // Search bar
 
 .search {
+    position: relative;
     user-select: none;
     border-radius: 8px;
     background-color: #fff;
@@ -13,17 +14,23 @@
         grid-template-columns: max-content 1fr max-content;
         gap: 8px;
 
-        #search-bar {
+        .search-bar {
+            min-width: 140px;
             background-color: transparent;
         }
         .search-clear {
+            display: none;
             cursor: pointer;
         }
     }
 
     .search-suggestions {
-        background-color: #fff;
+        display: none;
+        position: absolute;
+        width: 100%;
+        border-top: 1px solid #bebebe;
         border-radius: 0 0 8px 8px;
+        background-color: #fff;
 
         .suggestion-item {
             height: 42px;
@@ -33,6 +40,9 @@
             align-items: center;
             gap: 8px;
 
+            > * {
+                pointer-events: none;
+            }
             > :first-child {
                 padding-left: 8px;
                 color: #bebebe;
@@ -47,6 +57,11 @@
     }
 }
 
-.hidden {
-    display: none;
+.search.active {
+    border-radius: 8px 8px 0 0;
+}
+
+.search-clear.active,
+.search-suggestions.active {
+    display: block !important;
 }
