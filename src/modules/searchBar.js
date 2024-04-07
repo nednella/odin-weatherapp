@@ -56,7 +56,7 @@ export default class searchBar {
     #handleSearchSubmit(event) {
         if (this.searchBar.value !== '' && event.key == 'Enter') {
             console.log(this.searchBar.value)
-
+            API.googleSearch(this.searchBar.value)
             // TODO: Connect forecasting API
         }
     }
@@ -72,7 +72,11 @@ export default class searchBar {
         const clickedElement = e.target.children[1].textContent
 
         this.searchBar.value = clickedElement
+
+        this.#searchComponentState('inactive')
         this.#searchSuggestionState('inactive')
+
+        this.searchBar.focus()
 
         // TODO: Connect forecasting API
     }
@@ -81,18 +85,19 @@ export default class searchBar {
         this.searchSuggestions.textContent = ''
 
         // Append current search criteria
-        this.searchSuggestions.appendChild(this.#createSuggestionItem(this.searchBar.value))
-
-        // TODO: Connect nearest match API
+        const searchQuery = this.searchBar.value
+        this.searchSuggestions.appendChild(this.#createSuggestionItem(searchQuery))
 
         // Fetch nearest matches (up to 10 maximum)
-        // If an element matches searchCriteria exactly, do not append
-        // For each match,
-        // Append the match to the DOM
-
-        // Debugging
-        this.searchSuggestions.appendChild(this.#createSuggestionItem('Newcastle Upon Tyne'))
-        this.searchSuggestions.appendChild(this.#createSuggestionItem('London, United Kingdom'))
+        API.nearestMatch(searchQuery).then((data) => {
+            data.forEach((result, index) => {
+                if (index < 10) {
+                    this.searchSuggestions.appendChild(
+                        this.#createSuggestionItem(`${result['name']}, ${result['country']}`)
+                    )
+                }
+            })
+        })
     }
 
     #createSuggestionItem(content) {
