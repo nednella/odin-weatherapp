@@ -31,7 +31,7 @@ export default class UI {
                 classList: 'heading',
                 textContent: 'Weather App',
             }),
-            new searchBar(400).getSearchBar()
+            new searchBar('70%').getSearchBar()
         )
     }
 }
