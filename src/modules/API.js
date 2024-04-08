@@ -7,10 +7,26 @@ export default class API {
         }
     }
 
-    static async nearestMatch(value) {
+    static async forecast(query) {
         try {
             const response = await fetch(
-                this.URL + '/search.json' + `?key=${this.API_KEY}` + `&q=${value}`
+                this.URL + '/current.json' + `?key=${this.API_KEY}` + `&q=${query}`
+            )
+            if (response.ok) {
+                const data = await response.json()
+                return data
+            } else throw new Error()
+        } catch (error) {
+            console.log('Error: ', error)
+
+            // TODO: Error handling
+        }
+    }
+
+    static async nearestMatch(query) {
+        try {
+            const response = await fetch(
+                this.URL + '/search.json' + `?key=${this.API_KEY}` + `&q=${query}`
             )
             if (response.ok) {
                 const data = await response.json()
