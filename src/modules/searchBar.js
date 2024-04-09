@@ -28,12 +28,13 @@ export default class searchBar {
         }
     }
 
-    #debounceSearchInput = this.#debounce(() => {
-        this.#handleSearchInput() // Debounce nearestMatch API (triggered by search input) to avoid API call spam
+    #debounceNearestMatches = this.#debounce(() => {
+        // Debounce nearestMatch API (triggered by search bar input) to avoid API call spam
+        if (this.#searchBar.value !== '') this.#getNearestMatches() // API call
     }, 300)
 
     #initEventListeners() {
-        this.#searchBar.addEventListener('input', () => this.#debounceSearchInput())
+        this.#searchBar.addEventListener('input', () => this.#handleSearchInput())
         this.#searchBar.addEventListener('keydown', (e) => this.#handleSearchSubmit(e))
         this.#searchClear.addEventListener('click', () => this.#handleSearchClear())
         this.#searchSuggestions.addEventListener('click', (e) =>
@@ -64,7 +65,7 @@ export default class searchBar {
             this.#clearButtonState('active')
             this.#searchComponentState('active')
             this.#searchSuggestionState('active')
-            this.#getNearestMatches() // API call
+            this.#appendSuggestions()
         } else {
             this.#clearButtonState('inactive')
             this.#searchComponentState('inactive')
@@ -100,19 +101,28 @@ export default class searchBar {
         })
     }
 
-    #getNearestMatches() {
-        // Append current search criteria
+    #appendSuggestions() {
+        // Clear suggestions
         this.#searchSuggestions.textContent = ''
-        const searchQuery = this.#searchBar.value
-        this.#searchSuggestions.appendChild(this.#createSuggestionItem(searchQuery))
 
+        // Append current search query
+        this.#searchSuggestions.appendChild(this.#createSuggestionItem(this.#searchBar.value))
+
+        // Fetch nearest matches
+        this.#debounceNearestMatches()
+    }
+
+    #getNearestMatches() {
         // Fetch nearest matches (up to 10 maximum)
-        API.nearestMatch(searchQuery).then((data) => {
+        API.nearestMatch(this.#searchBar.value).then((data) => {
             data.forEach((result, index) => {
                 if (index < 10) {
                     this.#searchSuggestions.appendChild(
+                        // Include region if one exists
                         this.#createSuggestionItem(
-                            `${result['name']}, ${result['region']}, ${result['country']}`
+                            `${result['name'] + ','}
+                             ${result['region'] ? result['region'] + ',' : ''}
+                             ${result['country']}`
                         )
                     )
                 }
