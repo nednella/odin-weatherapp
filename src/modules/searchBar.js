@@ -1,5 +1,6 @@
 import { createElement } from './Utilities.js'
 import API from './API.js'
+import UI from './UI.js'
 
 export default class searchBar {
     // Init private class constructor variables
@@ -17,6 +18,7 @@ export default class searchBar {
     }
 
     // TODO: Add primary/secondary class styling for search bar to have smaller nav search bar
+    // TODO: Add a 'use your current location' search suggestion
 
     #debounce(func, timeout) {
         let timer
@@ -87,8 +89,6 @@ export default class searchBar {
     }
 
     #handleSearchSuggestionClick(e) {
-        const clickedElement = e.target.children[1].textContent
-        this.#searchBar.value = clickedElement
         this.#searchBar.focus()
         this.#searchComponentState('inactive')
         this.#searchSuggestionState('inactive')
@@ -97,13 +97,16 @@ export default class searchBar {
 
     #handleForecast() {
         API.forecast(this.#searchBar.value).then((data) => {
-            console.log(data)
+            UI.renderForecast(data)
         })
+        this.#searchBar.value = '' // Clear searchbar
     }
 
     #appendSuggestions() {
         // Clear suggestions
         this.#searchSuggestions.textContent = ''
+
+        // TODO: Append use your current location
 
         // Append current search query
         this.#searchSuggestions.appendChild(this.#createSuggestionItem(this.#searchBar.value))
@@ -120,9 +123,13 @@ export default class searchBar {
                     this.#searchSuggestions.appendChild(
                         // Include region if one exists
                         this.#createSuggestionItem(
-                            `${result['name'] + ','}
-                             ${result['region'] ? result['region'] + ',' : ''}
-                             ${result['country']}`
+                            `${result['name'] + ', '}` +
+                                `${
+                                    !result['region'] || result['name'] == result['region']
+                                        ? ''
+                                        : result['region'] + ', '
+                                }` +
+                                `${result['country']}`
                         )
                     )
                 }
@@ -172,7 +179,7 @@ export default class searchBar {
                 placeholder: 'Search Location',
                 autocomplete: 'off',
                 autocapitalize: 'on',
-                spellcheck: 'false',
+                spellcheck: false,
             }),
             createElement('span', {
                 classList: 'search-clear material-symbols-rounded hidden',
