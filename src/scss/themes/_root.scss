@@ -1,0 +1,22 @@
+// Credit for implementing SCSS themes: https://medium.com/@dmitriy.borodiy/easy-color-theming-with-scss-bc38fd5734d1
+@import 'themes';
+
+:root {
+    $active-theme: '';
+
+    @each $property, $value in $active-theme {
+        --#{$property}: #{$value};
+    }
+}
+
+html[data-theme='day'] {
+    @each $property, $value in $day-theme {
+        --#{$property}: #{$value};
+    }
+}
+
+html[data-theme='night'] {
+    @each $property, $value in $night-theme {
+        --#{$property}: #{$value};
+    }
+}

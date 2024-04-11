@@ -1,0 +1,17 @@
+// Credit for implementing SCSS themes: https://medium.com/@dmitriy.borodiy/easy-color-theming-with-scss-bc38fd5734d1
+
+$day-theme: (
+    // Body
+    'body-bg-gradient-1': #44929c,
+    'body-bg-gradient-2': #aab9c0,
+    'body-bg-gradient-3': #aab9c0,
+    'body-bg-gradient-4': #f4d7cf
+);
+
+$night-theme: (
+    // Body
+    'body-bg-gradient-1': #18182c,
+    'body-bg-gradient-2': #19192e,
+    'body-bg-gradient-3': #0c0c20,
+    'body-bg-gradient-4': #121213
+);
