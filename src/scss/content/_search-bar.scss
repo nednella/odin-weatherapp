@@ -47,6 +47,9 @@
                 padding-left: 8px;
                 color: #bebebe;
             }
+            > :last-child {
+                padding-right: 8px;
+            }
         }
         .suggestion-item:hover {
             background-color: #e6e6e6;
