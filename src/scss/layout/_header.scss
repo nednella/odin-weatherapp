@@ -1,10 +1,38 @@
 // Header
 
 header {
-    grid-area: header;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 999;
     user-select: none;
+    background-color: inherit;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr repeat(2, max-content);
+    grid-template-areas: 'logo toggle search';
     align-items: center;
-    justify-content: space-between;
+    gap: 24px;
+
+    .logo {
+        grid-area: logo;
+    }
+    .unit-toggle {
+        grid: toggle;
+        display: flex;
+
+        > :first-child,
+        :nth-child(3) {
+            cursor: pointer;
+            width: 40px;
+            text-align: center;
+        }
+
+        > .active {
+            font-weight: bold;
+        }
+    }
+    .search {
+        grid-area: search;
+    }
 }

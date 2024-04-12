@@ -1,15 +1,17 @@
-//Content
+// Content
 
-#content {
+main {
     grid-area: content;
-
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 
-    .heading {
-        font-size: 24px;
+    > * {
+        min-height: 100%;
+        min-width: 100%;
+        display: none !important;
     }
 }

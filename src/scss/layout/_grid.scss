@@ -11,20 +11,33 @@ body {
 }
 
 #grid-container {
-    height: 100%;
+    height: max-content;
+    min-height: 100%;
     width: 100%;
     padding: 0 48px;
-    // background: linear-gradient(
-    //     to bottom,
-    //     black 0%,
-    //     rgb(8, 8, 49) 60%,
-    //     rgb(21, 27, 56) 100%,
-    // )
-    background-color: rgb(24, 24, 44);
+    background: linear-gradient(
+        to bottom right,
+        var(--body-bg-gradient-1) 0%,
+        var(--body-bg-gradient-2) 20%,
+        var(--body-bg-gradient-3) 60%,
+        var(--body-bg-gradient-4) 100%
+    );
+    // background-color: rgb(24, 24, 44);
+}
+
+#grid-container.homepage--active {
+    display: grid;
+    grid-template-rows: 1fr $grid-footer-height;
+    grid-template-areas:
+        'content'
+        'footer';
+}
+
+#grid-container.dashboard--active {
     display: grid;
     grid-template-rows: $grid-header-height 1fr $grid-footer-height;
     grid-template-areas:
-        "header"
-        "content"
-        "footer";
+        'header'
+        'content'
+        'footer';
 }

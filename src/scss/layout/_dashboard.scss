@@ -1,0 +1,94 @@
+// Forecast
+
+.dashboard.active {
+    display: grid !important;
+    grid-template-rows: repeat(6, max-content);
+    gap: 36px;
+
+    .location {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .name {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        :nth-child(2),
+        :last-child {
+            font-size: 16px;
+        }
+    }
+
+    .local-time {
+        display: flex;
+        justify-content: center;
+    }
+
+    .local-stats {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+
+        > .primary,
+        .secondary {
+            height: 160px;
+        }
+
+        .primary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .condition {
+                font-size: 20px;
+            }
+            .temperature {
+                font-size: 48px;
+                font-weight: 700;
+            }
+        }
+        .secondary {
+            position: absolute;
+            right: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .real-feel {
+            }
+            .humidity {
+            }
+            .wind {
+            }
+        }
+        .overview {
+            display: flex;
+            justify-content: space-around;
+
+            .sunrise {
+            }
+            .sunset {
+            }
+            .temp-high {
+            }
+            .temp-low {
+            }
+        }
+    }
+
+    .hourly-forecast {
+        display: flex;
+        justify-content: center;
+    }
+
+    .ten-day-forecast {
+        display: flex;
+        justify-content: center;
+    }
+}
