@@ -1,30 +1,33 @@
 // Popular locations scroll content
 
 .popular-locations {
-    padding: 8px 0;
-    position: relative;
-    display: flex;
+    padding: 0 5%;
     overflow: hidden;
-    white-space: nowrap;
+    color: white;
+    background-color: #18182c;
 
-    .location-slide {
+    > .location-slide-container {
+        padding: 0.5em 0;
+        position: relative;
         display: flex;
-        animation: 30s slide infinite linear;
+        overflow: hidden;
+        white-space: nowrap;
 
-        > * {
-            user-select: none;
-            cursor: pointer;
-            margin: 0 24px;
+        > .location-slide {
+            display: flex;
+            animation: 30s slide infinite linear;
+
+            > * {
+                user-select: none;
+                cursor: pointer;
+                margin: 0 1.5em;
+            }
         }
     }
 }
 
-// .popular-locations:hover .location-slide {
-//     animation-play-state: paused;
-// }
-
-.popular-locations:before,
-.popular-locations:after {
+.location-slide-container:before,
+.location-slide-container:after {
     position: absolute;
     top: 0;
     height: 100%;
@@ -33,12 +36,12 @@
     content: '';
 }
 
-.popular-locations:before {
-    left: -5px;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0), var(--body-bg-gradient-1));
+.location-slide-container:before {
+    left: -2px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), #18182c);
 }
 
-.popular-locations:after {
-    right: -5px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--body-bg-gradient-3));
+.location-slide-container:after {
+    right: -2px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #18182c);
 }
