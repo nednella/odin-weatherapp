@@ -2,93 +2,95 @@
 
 .dashboard.active {
     display: grid !important;
-    grid-template-rows: repeat(6, max-content);
-    gap: 36px;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1em;
 
-    .location {
+    > * {
+        padding: 0 2em;
+    }
+
+    > *:not(.popular-locations) {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    > .location-info {
+        text-align: center;
+
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        .name {
-            font-size: 48px;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        :nth-child(2),
-        :last-child {
-            font-size: 16px;
+        > :last-child {
+            padding-top: 1em;
         }
     }
 
-    .local-time {
-        display: flex;
-        justify-content: center;
-    }
-
-    .local-stats {
-        position: relative;
+    .current-forecast {
         display: flex;
         flex-direction: column;
-        gap: 36px;
+        gap: 2em;
 
-        > .primary,
-        .secondary {
-            height: 160px;
+        .primary-container {
+            display: grid;
+            grid-template-columns: max-content 1fr max-content;
+            gap: 2em;
+
+            > * {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end;
+            }
+            .icon-container {
+                justify-self: center;
+
+                img {
+                    height: 160px;
+                    width: 160px;
+                }
+            }
+            .temp-container {
+                justify-self: start;
+            }
+            .high-low-container {
+                justify-self: center;
+                flex-direction: row;
+                gap: 2em;
+
+                > * {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5em;
+                }
+            }
         }
+        .forecast-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5em;
 
-        .primary {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            .forecast-details-card {
+                min-width: 100px;
+                padding: 0.5em;
+                white-space: nowrap;
 
-            .condition {
-                font-size: 20px;
-            }
-            .temperature {
-                font-size: 48px;
-                font-weight: 700;
-            }
-        }
-        .secondary {
-            position: absolute;
-            right: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-
-            .real-feel {
-            }
-            .humidity {
-            }
-            .wind {
-            }
-        }
-        .overview {
-            display: flex;
-            justify-content: space-around;
-
-            .sunrise {
-            }
-            .sunset {
-            }
-            .temp-high {
-            }
-            .temp-low {
+                img {
+                    height: 36px;
+                    width: 36px;
+                }
             }
         }
     }
 
     .hourly-forecast {
-        display: flex;
-        justify-content: center;
     }
 
     .ten-day-forecast {
-        display: flex;
-        justify-content: center;
     }
 }

@@ -19,69 +19,139 @@
                 </section>
                 <section class="dashboard">
                     <div class="popular-locations">
-                        <div class="location-slide">
-                            <h3>Los Angeles</h3>
-                            <h3>New York</h3>
-                            <h3>Toronto</h3>
-                            <h3>London</h3>
-                            <h3>Paris</h3>
-                            <h3>Rome</h3>
-                            <h3>Dubai</h3>
-                            <h3>Tokyo</h3>
-                            <h3>Sydney</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                        </div>
-                        <div class="location-slide">
-                            <h3>Los Angeles</h3>
-                            <h3>New York</h3>
-                            <h3>Toronto</h3>
-                            <h3>London</h3>
-                            <h3>Paris</h3>
-                            <h3>Rome</h3>
-                            <h3>Dubai</h3>
-                            <h3>Tokyo</h3>
-                            <h3>Sydney</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
-                            <h3>test</h3>
+                        <div class="location-slide-container">
+                            <div class="location-slide">
+                                <h3 class="fw-400">Los Angeles</h3>
+                                <h3 class="fw-400">Toronto</h3>
+                                <h3 class="fw-400">New York</h3>
+                                <h3 class="fw-400">London</h3>
+                                <h3 class="fw-400">Paris</h3>
+                                <h3 class="fw-400">Rome</h3>
+                                <h3 class="fw-400">Dubai</h3>
+                                <h3 class="fw-400">Tokyo</h3>
+                                <h3 class="fw-400">Sydney</h3>
+                                <h3 class="fw-400">test</h3>
+                                <h3 class="fw-400">test</h3>
+                                <h3 class="fw-400">test</h3>
+                                <h3 class="fw-400">test</h3>
+                                <h3 class="fw-400">test</h3>
+                            </div>
+                            <div class="location-slide">
+                                <h3>Los Angeles</h3>
+                                <h3>New York</h3>
+                                <h3>Toronto</h3>
+                                <h3>London</h3>
+                                <h3>Paris</h3>
+                                <h3>Rome</h3>
+                                <h3>Dubai</h3>
+                                <h3>Tokyo</h3>
+                                <h3>Sydney</h3>
+                                <h3>test</h3>
+                                <h3>test</h3>
+                                <h3>test</h3>
+                                <h3>test</h3>
+                                <h3>test</h3>
+                            </div>
                         </div>
                     </div>
-                    <div class="location">
-                        <span class="name"></span>
-                        <span class="region"></span>
-                        <span class="country"></span>
+                    <div class="location-info">
+                        <span class="name fs-xxl fw-700"></span>
+                        <span class="region fs-m"></span>
+                        <span class="country fs-m"></span>
+                        <span class="time fs-l"></span>
                     </div>
-                    <div class="local-time"></div>
 
-                    <!-- <div class="local-stats">
-                        <div class="primary">
-                            <span class="condition">Partly Cloudy</span>
-                            <span class="temperature">7C</span>
+                    <div class="current-forecast">
+                        <div class="primary-container">
+                            <div class="icon-container">
+                                <img src="./content/icons/day/116.svg" />
+                                <span class="fs-m fw-400 grey-400">Partly Cloudy</span>
+                            </div>
+                            <div class="temp-container">
+                                <span class="fs-xxxl fw-700">7&deg;C</span>
+                                <span class="fs-m fw-400 grey-400">Real Feel 2.9&deg;C</span>
+                            </div>
+                            <div class="high-low-container">
+                                <div>
+                                    <span class="material-symbols-rounded fs-xl">north</span>
+                                    <div>
+                                        <p class="fs-m fw-400 grey-400">High</p>
+                                        <p class="fs-xl fw-600">12&deg;C</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="material-symbols-rounded fs-xl">south</span>
+                                    <div>
+                                        <p class="fs-m fw-400 grey-400">Low</p>
+                                        <p class="fs-xl fw-600">1&deg;C</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="secondary">
-                            <span class="real-feel">Real Feel: 2.9C</span>
-                            <span class="humidity">Humidity: 40%</span>
-                            <span class="wind">Wind: 15 km/h</span>
-                            <span class="gust">Gust: 32 km/h</span>
-                            <span class="direction">Direction: SSE</span>
-                        </div>
-                        <div class="overview">
-                            <span class="sunrise">Sunrise: 05:15 AM</span>
-                            <span class="sunset">Sunset: 08:49 PM</span>
-                            <span class="temp-high">High: 15C</span>
-                            <span class="temp-low">Low: 3C</span>
+                        <div class="forecast-details">
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/sunrise.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Sunrise</p>
+                                    <p class="fs-m">05:32 AM</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/sunset.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Sunset</p>
+                                    <p class="fs-m">08:44 PM</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/extreme-rain.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Chance of rain</p>
+                                    <p class="fs-m">9%</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/humidity.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Humidity</p>
+                                    <p class="fs-m">61%</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/wind.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Wind</p>
+                                    <p class="fs-m">17.5 mph</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/gust.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Gust</p>
+                                    <p class="fs-m">34.2 mph</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/uv.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">UV Index</p>
+                                    <p class="fs-m">6</p>
+                                </div>
+                            </div>
+                            <div class="forecast-details-card">
+                                <img src="./content/icons/other/fog.svg" class="icon" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Visiblity</p>
+                                    <p class="fs-m">6 miles</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="hourly-forecast">Hourly Forecast</div>
+
+                    <!-- <div class="hourly-forecast">Hourly Forecast</div>
                     <div class="ten-day-forecast">10-Day Forecast</div> -->
 
-                    <!-- <div>
+                    <!-- <div class="tmp">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Odio pellentesque diam
                         volutpat commodo sed egestas egestas fringilla phasellus. Nisi est sit amet
