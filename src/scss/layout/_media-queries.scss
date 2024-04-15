@@ -1,0 +1,7 @@
+// Media Queries
+
+@media only screen and (max-width: 768px) {
+    .forecast-details {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
