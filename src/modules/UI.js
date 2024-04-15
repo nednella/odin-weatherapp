@@ -121,17 +121,13 @@ export default class UI {
         let todayHours = today.hour,
             tomorrowHours = tomorrow.hour,
             currentHour = getHour(this.#localTime),
-            nextHour,
+            nextHour = currentHour + 1,
             hourCount = 0
-
-        // Grab the next hour
-        currentHour < 23 ? (nextHour = currentHour + 1) : (currentHour = 0)
-        console.log(nextHour)
 
         // Display the next 24 hours of forecast
         while (hourCount < 24) {
             // Debugging
-            // console.log('Current Hour: ', nextHour)
+            // console.log('Next hour: ', nextHour)
 
             // Check if end of day is reached
             if (nextHour === 24) {
@@ -207,6 +203,9 @@ export default class UI {
         // Wrap below in a timeout of 1 second
 
         API.forecast('Newcastle Upon Tyne').then((data) => {
+            // Debugging
+            console.log(data)
+
             const location = data[0].location
             const current = data[1].current
             const forecast = data[2].forecast
