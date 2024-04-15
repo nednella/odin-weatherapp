@@ -3,7 +3,7 @@
 .search {
     position: relative;
     user-select: none;
-    border-radius: 8px;
+    border-radius: 0.5em;
     background-color: #fff;
     color: #000;
 
@@ -12,7 +12,7 @@
 
         display: grid;
         grid-template-columns: max-content 1fr max-content;
-        gap: 8px;
+        gap: 0.5em;
 
         .search-bar {
             min-width: 140px;
@@ -29,7 +29,7 @@
         position: absolute;
         width: 100%;
         border-top: 1px solid #bebebe;
-        border-radius: 0 0 8px 8px;
+        border-radius: 0 0 0.5em 0.5em;
         background-color: #fff;
 
         .suggestion-item {
@@ -38,30 +38,30 @@
             display: grid;
             grid-template-columns: max-content 1fr;
             align-items: center;
-            gap: 8px;
+            gap: 0.5em;
 
             > * {
                 pointer-events: none;
             }
             > :first-child {
-                padding-left: 8px;
+                padding-left: 0.5em;
                 color: #bebebe;
             }
             > :last-child {
-                padding-right: 8px;
+                padding-right: 0.5em;
             }
         }
         .suggestion-item:hover {
             background-color: #e6e6e6;
         }
         .suggestion-item:last-child:hover {
-            border-radius: 0 0 8px 8px;
+            border-radius: 0 0 0.5em 0.5em;
         }
     }
 }
 
 .search.active {
-    border-radius: 8px 8px 0 0;
+    border-radius: 0.5em 0.5em 0 0;
 }
 
 .search-clear.active,
