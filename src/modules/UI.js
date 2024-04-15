@@ -1,6 +1,6 @@
 import API from './API.js'
 import searchBar from './searchBar.js'
-import { createElement, parseLocalTime } from './Utilities.js'
+import { createElement, parseLocalTime, getHour, getFormattedHour } from './Utilities.js'
 import { conditions } from './conditions.js'
 import { formatInTimeZone } from 'date-fns-tz'
 
@@ -111,9 +111,69 @@ export default class UI {
         humidity.textContent = `${today.day.avghumidity}%`
     }
 
-    static #populateHourly() {}
+    static #populateHourly(forecast) {
+        const container = document.querySelector('.hourly-details')
+        container.innerHTML = ''
 
-    static #appendHour() {}
+        const today = forecast.forecastday[0]
+        const tomorrow = forecast.forecastday[1]
+
+        let todayHours = today.hour,
+            tomorrowHours = tomorrow.hour,
+            currentHour = getHour(this.#localTime),
+            nextHour,
+            hourCount = 0
+
+        // Grab the next hour
+        currentHour < 23 ? (nextHour = currentHour + 1) : (currentHour = 0)
+        console.log(nextHour)
+
+        // Display the next 24 hours of forecast
+        while (hourCount < 24) {
+            // Debugging
+            // console.log('Current Hour: ', nextHour)
+
+            // Check if end of day is reached
+            if (nextHour === 24) {
+                nextHour = 0
+                todayHours = tomorrowHours
+            }
+
+            // Get forecasted hour to display
+            const hourToDisplay = todayHours[nextHour]
+
+            // Display hour forecast
+            container.appendChild(this.#appendHour(hourToDisplay))
+
+            // Update hour counters
+            nextHour++
+            hourCount++
+        }
+    }
+
+    static #appendHour(hour) {
+        // Debugging
+        // console.log(hour)
+
+        // Get image source based on current hours' conditions
+        let imagePath, imageIcon
+
+        hour.is_day ? (imagePath = 'day') : (imagePath = 'night')
+        imageIcon = conditions.find((obj) => obj.code == hour.condition.code).icon
+
+        // Create and return element
+        const element = createElement('div', { classList: 'hourly-details-card' })
+        element.append(
+            createElement('span', {
+                classList: 'fs-m fw-500',
+                textContent: getFormattedHour(hour.time),
+            }),
+            createElement('img', { src: `./content/icons/${imagePath}/${imageIcon}.svg` }),
+            createElement('span', { classList: 'fs-m fw-500', textContent: `${hour.temp_c}\u00B0` })
+        )
+
+        return element
+    }
 
     static #populate7Day() {}
 
@@ -154,7 +214,7 @@ export default class UI {
             this.#setLocalTime(location)
             this.#populateLocationInfo(location)
             this.#populateForecast(current, forecast)
-            this.#populateHourly()
+            this.#populateHourly(forecast)
             this.#populate7Day()
         })
 
