@@ -2,6 +2,7 @@ import API from './API.js'
 import searchBar from './searchBar.js'
 import { createElement, parseLocalTime, getHour, getFormattedHour } from './Utilities.js'
 import { conditions } from './conditions.js'
+import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 
 export default class UI {
@@ -171,7 +172,88 @@ export default class UI {
         return element
     }
 
-    static #populate7Day() {}
+    static #populateDaily(forecast) {
+        const container = document.querySelector('.day-details')
+        container.innerHTML = ''
+
+        const days = forecast.forecastday
+        days.splice(0, 1) // Remove current day from array
+
+        // Debugging
+        // console.log(days)
+
+        days.forEach((day) => {
+            container.appendChild(this.#appendDay(new Date(day.date), day.day))
+        })
+    }
+
+    static #appendDay(date, day) {
+        // Debugging
+        // console.log(date, day)
+
+        // Get image source based on days' conditions
+        const condition = conditions.find((obj) => obj.code == day.condition.code)
+        const imageIcon = condition.icon
+        const imageAlt = condition.day
+        console.log(condition)
+        console.log(`./contents/icons/day/${imageIcon}.svg`)
+
+        // Create and return element
+        const element = createElement('div', { classList: 'day-details-card' })
+
+        const dateContainer = createElement('div', { classList: 'date-container' })
+        dateContainer.append(
+            createElement('span', {
+                classList: 'fs-s fw-500',
+                textContent: format(date, 'EEEE'),
+            }),
+            createElement('span', {
+                classList: 'fs-s fw-300',
+                textContent: format(date, 'dd/MM'),
+            })
+        )
+
+        const tempContainer = createElement('div', { classList: 'temp-container' })
+        tempContainer.append(
+            createElement('span', {
+                classList: 'fs-l fw-500',
+                style: 'grid-area: temp;',
+                textContent: `${Math.round(day.avgtemp_c)}\u00B0`,
+            }),
+            createElement('span', {
+                classList: 'fs-s fw-400',
+                style: 'grid-area: high;',
+                textContent: `${Math.round(day.maxtemp_c)}\u00B0`,
+            }),
+            createElement('span', {
+                classList: 'fs-s fw-400',
+                style: 'grid-area: low;',
+                textContent: `${Math.round(day.mintemp_c)}\u00B0`,
+            })
+        )
+
+        const iconContainer = createElement('div', { classList: 'icon-container' })
+        iconContainer.append(
+            createElement('img', { src: `./content/icons/day/${imageIcon}.svg` }),
+            createElement('span', { classList: 'fs-s fw-400', textContent: imageAlt })
+        )
+
+        const detailsSubContainer = createElement('div', { classList: 'fw500' })
+        detailsSubContainer.append(
+            createElement('p', { classList: 'fs-s', textContent: 'Chance of rain' }),
+            createElement('p', { classList: 'fs-m', textContent: `${day.daily_chance_of_rain}%` })
+        )
+
+        const detailsContainer = createElement('div', { classList: 'forecast-details-card' })
+        detailsContainer.append(
+            createElement('img', { src: './content/icons/other/extreme-rain.svg' }),
+            detailsSubContainer
+        )
+
+        element.append(dateContainer, tempContainer, iconContainer, detailsContainer)
+
+        return element
+    }
 
     static #displaySection(section) {
         document.querySelector('#grid-container').className = ''
@@ -214,7 +296,7 @@ export default class UI {
             this.#populateLocationInfo(location)
             this.#populateForecast(current, forecast)
             this.#populateHourly(forecast)
-            this.#populate7Day()
+            this.#populateDaily(forecast)
         })
 
         UI.#displaySection('forecast')
