@@ -57,17 +57,39 @@
     }
 
     .hourly-forecast {
-        overflow: hidden;
         display: flex;
         flex-direction: column;
         gap: 1em;
 
-        .hourly-details {
-            overflow-x: scroll;
-            display: grid;
-            grid-auto-flow: column;
-            grid-auto-columns: max-content;
-            gap: 1em;
+        .hourly-details-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+
+            .wrapper {
+                width: 90%;
+                display: flex;
+                overflow: hidden;
+            }
+
+            .slide-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 3em;
+                font-weight: 300;
+                border-radius: 50%;
+                color: #000;
+                cursor: pointer;
+                user-select: none;
+            }
+            .slide-button#slide-prev {
+                left: -10px;
+            }
+            .slide-button#slide-next {
+                right: -10px;
+            }
         }
     }
 

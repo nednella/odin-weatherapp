@@ -12,6 +12,12 @@ export default class UI {
         }
     }
 
+    // TODO: Fix inifinite scroll https://medium.com/@mintpw/how-to-create-infinite-horizontal-scroll-and-hover-pause-with-pure-css-b052caa683bd
+    // TODO: Add custom netflix-style hourly display
+    // TODO: Add error handling to API calls
+    // TODO: Add a data check before displaying dashboard in case of errors
+    // TODO: Add an error section that displays if there is a problem
+
     static #localTime
 
     static initApp() {
@@ -20,6 +26,30 @@ export default class UI {
 
     static #initEventListeners() {
         return
+    }
+
+    static #initCarousel() {
+        const slideButtons = document.querySelectorAll('.slide-button')
+        const carousel = document.querySelector('.hourly-details-carousel')
+        const root = document.querySelector('body')
+        const rootProperties = getComputedStyle(root)
+
+        function scrollCarousel(button) {
+            const totalItems = carousel.childElementCount
+            const itemsPerPage = parseInt(rootProperties.getPropertyValue('--carousel-items'))
+            const totalPages = Math.ceil(totalItems / itemsPerPage) - 1
+
+            const direction = button.id === 'slide-prev' ? -1 : 1
+            const index = parseInt(rootProperties.getPropertyValue('--carousel-index'))
+            const newIndex = index + direction
+
+            if (newIndex > totalPages || newIndex < 0) return
+            else return root.style.setProperty('--carousel-index', newIndex)
+        }
+
+        slideButtons.forEach((button) => {
+            button.addEventListener('click', () => scrollCarousel(button))
+        })
     }
 
     static #clear() {
@@ -113,7 +143,7 @@ export default class UI {
     }
 
     static #populateHourly(forecast) {
-        const container = document.querySelector('.hourly-details')
+        const container = document.querySelector('.hourly-details-carousel')
         container.innerHTML = ''
 
         const today = forecast.forecastday[0]
@@ -195,8 +225,6 @@ export default class UI {
         const condition = conditions.find((obj) => obj.code == day.condition.code)
         const imageIcon = condition.icon
         const imageAlt = condition.day
-        console.log(condition)
-        console.log(`./contents/icons/day/${imageIcon}.svg`)
 
         // Create and return element
         const element = createElement('div', { classList: 'day-details-card' })
@@ -284,7 +312,20 @@ export default class UI {
         // UI.#displaySection('loading')
         // Wrap below in a timeout of 1 second
 
-        API.forecast('Newcastle Upon Tyne').then((data) => {
+        // Debugging
+        // console.log(data)
+
+        // const location = data[0].location
+        // const current = data[1].current
+        // const forecast = data[2].forecast
+
+        // this.#setLocalTime(location)
+        // this.#populateLocationInfo(location)
+        // this.#populateForecast(current, forecast)
+        // this.#populateHourly(forecast)
+        // this.#populateDaily(forecast)
+
+        API.forecast('New York').then((data) => {
             // Debugging
             console.log(data)
 
@@ -294,9 +335,10 @@ export default class UI {
 
             this.#setLocalTime(location)
             this.#populateLocationInfo(location)
-            this.#populateForecast(current, forecast)
+            // this.#populateForecast(current, forecast)
             this.#populateHourly(forecast)
-            this.#populateDaily(forecast)
+            // this.#populateDaily(forecast)
+            this.#initCarousel()
         })
 
         UI.#displaySection('forecast')

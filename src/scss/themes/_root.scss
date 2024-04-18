@@ -2,8 +2,10 @@
 @import 'themes';
 
 :root {
-    $active-theme: '';
+    --carousel-index: 0; // Page of slider items currently displayed
+    --carousel-items: 6; // Number of items per page
 
+    $active-theme: '';
     @each $property, $value in $active-theme {
         --#{$property}: #{$value};
     }
