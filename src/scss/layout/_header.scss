@@ -8,31 +8,19 @@ header {
     user-select: none;
     background-color: inherit;
 
-    display: grid;
-    grid-template-columns: 1fr repeat(2, max-content);
-    grid-template-areas: 'logo toggle search';
+    display: flex;
     align-items: center;
-    gap: 24px;
+    justify-content: space-between;
 
     .logo {
-        grid-area: logo;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
-    .unit-toggle {
-        grid: toggle;
-        display: flex;
 
-        > :first-child,
-        :nth-child(3) {
-            cursor: pointer;
-            width: 40px;
-            text-align: center;
-        }
-
-        > .active {
-            font-weight: bold;
-        }
-    }
-    .search {
-        grid-area: search;
+    #searchMenu,
+    #settingsMenu {
+        font-size: 2em;
+        font-weight: 300;
     }
 }

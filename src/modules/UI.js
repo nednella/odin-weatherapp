@@ -65,17 +65,20 @@ export default class UI {
         if (header.textContent) return
 
         header.append(
+            createElement('span', {
+                id: 'settingsMenu',
+                classList: 'material-symbols-rounded',
+                textContent: 'menu',
+            }),
             createElement('div', { classList: 'logo', textContent: 'Logo' }),
-            createElement('div', { classList: 'unit-toggle' }),
-            new searchBar('270px').getSearchBar()
+            new searchBar('270px').getSearchBar(),
+            createElement('span', {
+                id: 'searchMenu',
+                classList: 'material-symbols-rounded',
+                textContent: 'search',
+                style: 'display: none;',
+            })
         )
-        header
-            .querySelector('.unit-toggle')
-            .append(
-                createElement('span', { classList: 'active', textContent: '\u00B0C' }),
-                createElement('span', { classList: '', textContent: '|' }),
-                createElement('span', { classList: '', textContent: '\u00B0F' })
-            )
     }
 
     static #setLocalTime(location) {
@@ -210,7 +213,7 @@ export default class UI {
         days.splice(0, 1) // Remove current day from array
 
         // Debugging
-        // console.log(days)
+        console.log(days)
 
         days.forEach((day) => {
             container.appendChild(this.#appendDay(new Date(day.date), day.day))

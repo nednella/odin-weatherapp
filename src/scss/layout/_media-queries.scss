@@ -1,9 +1,19 @@
 // Media Queries
 
 @media only screen and (max-width: 768px) {
-    .forecast-details {
+    header {
+        .search {
+            display: none !important;
+        }
+        #searchMenu {
+            display: block !important;
+        }
+    }
+
+    .current-weather > .details-container {
         grid-template-columns: repeat(3, 1fr) !important;
     }
+
     :root {
         --carousel-items: 5;
     }
