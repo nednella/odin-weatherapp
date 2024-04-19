@@ -6,14 +6,14 @@
     color: white;
     background-color: #18182c;
 
-    > .location-slide-container {
-        padding: 0.5em 0;
+    > .location-carousel {
+        padding-bottom: 0.5em;
         position: relative;
         display: flex;
         overflow: hidden;
         white-space: nowrap;
 
-        > .location-slide {
+        > .inner-carousel {
             display: flex;
             animation: 30s slide infinite linear;
 
@@ -26,8 +26,8 @@
     }
 }
 
-.location-slide-container:before,
-.location-slide-container:after {
+.location-carousel:before,
+.location-carousel:after {
     position: absolute;
     top: 0;
     height: 100%;
@@ -36,12 +36,12 @@
     content: '';
 }
 
-.location-slide-container:before {
+.location-carousel:before {
     left: -2px;
     background: linear-gradient(to left, rgba(255, 255, 255, 0), #18182c);
 }
 
-.location-slide-container:after {
+.location-carousel:after {
     right: -2px;
     background: linear-gradient(to right, rgba(255, 255, 255, 0), #18182c);
 }

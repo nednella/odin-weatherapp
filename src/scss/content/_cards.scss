@@ -1,4 +1,6 @@
-.forecast-details-card {
+// Cards
+
+.current-card {
     min-width: 100px;
     padding: 0.5em;
     white-space: nowrap;
@@ -14,7 +16,7 @@
     }
 }
 
-.hourly-details-card {
+.hourly-card {
     padding: 0.5em;
     border-radius: 0.5em;
     color: white;
@@ -31,7 +33,7 @@
     }
 }
 
-.day-details-card {
+.day-card {
     height: 120px;
     width: 100%;
     padding: 1em;

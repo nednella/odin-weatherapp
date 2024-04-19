@@ -1,0 +1,13 @@
+//
+
+.forecast-weekly {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .details-container {
+        display: grid;
+        grid-auto-rows: max-content;
+        gap: 2em;
+    }
+}

@@ -1,0 +1,13 @@
+// Location
+
+.current-location {
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > :nth-child(4) {
+        padding-top: 0.5em;
+    }
+}

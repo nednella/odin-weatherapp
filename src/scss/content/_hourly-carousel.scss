@@ -1,6 +1,6 @@
-// Hourly Forecast Carousel
+// Hourly carousel
 
-.hourly-details-carousel {
+.hourly-carousel {
     width: 100%;
     user-select: none;
     scrollbar-width: none;
@@ -11,12 +11,12 @@
     transform: translateX(calc(var(--carousel-index) * -100%));
     transition: 500ms ease-in-out transform;
 
-    > .hourly-details-card {
+    > .hourly-card {
         width: 90%;
         justify-self: center;
     }
 }
 
-.hourly-details-carousel::-webkit-scrollbar {
+.hourly-carousel::-webkit-scrollbar {
     display: none; // Hide default scrollbar
 }

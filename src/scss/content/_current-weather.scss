@@ -1,0 +1,37 @@
+// Current Weather
+
+.current-weather {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+    grid-template-areas:
+        'icon temp'
+        'details details';
+
+    > * {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .icon-container {
+        grid-area: icon;
+        justify-self: end;
+
+        img {
+            height: 160px;
+            width: 160px;
+        }
+    }
+    .temp-container {
+        grid-area: temp;
+        justify-self: start;
+    }
+    .details-container {
+        grid-area: details;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5em;
+    }
+}

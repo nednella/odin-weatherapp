@@ -2,7 +2,7 @@
 
 .dashboard.active {
     display: grid !important;
-    grid-template-rows: repeat(5, max-content);
+    grid-template-rows: repeat(6, max-content);
     gap: 2em;
 
     > * {
@@ -13,95 +13,5 @@
         width: 100%;
         max-width: 1000px;
         margin: 0 auto;
-    }
-
-    > .location-info {
-        text-align: center;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        > :nth-child(4) {
-            padding-top: 0.5em;
-        }
-    }
-
-    .current-forecast {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2em;
-
-        > * {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-        }
-        .icon-container {
-            justify-self: end;
-
-            img {
-                height: 160px;
-                width: 160px;
-            }
-        }
-        .temp-container {
-            justify-self: start;
-        }
-    }
-    .forecast-details {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.5em;
-    }
-
-    .hourly-forecast {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-
-        .hourly-details-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-
-            .wrapper {
-                width: 90%;
-                display: flex;
-                overflow: hidden;
-            }
-
-            .slide-button {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 3em;
-                font-weight: 300;
-                border-radius: 50%;
-                color: #000;
-                cursor: pointer;
-                user-select: none;
-            }
-            .slide-button#slide-prev {
-                left: -10px;
-            }
-            .slide-button#slide-next {
-                right: -10px;
-            }
-        }
-    }
-
-    .seven-day-forecast {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-
-        .day-details {
-            display: grid;
-            grid-auto-rows: max-content;
-            gap: 2em;
-        }
     }
 }

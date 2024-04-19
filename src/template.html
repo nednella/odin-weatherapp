@@ -19,48 +19,27 @@
                 </section>
                 <section class="dashboard">
                     <div class="popular-locations">
-                        <div class="location-slide-container">
-                            <div class="location-slide">
-                                <h3 class="fw-400">Los Angeles</h3>
-                                <h3 class="fw-400">Toronto</h3>
-                                <h3 class="fw-400">New York</h3>
-                                <h3 class="fw-400">London</h3>
-                                <h3 class="fw-400">Paris</h3>
-                                <h3 class="fw-400">Rome</h3>
-                                <h3 class="fw-400">Dubai</h3>
-                                <h3 class="fw-400">Tokyo</h3>
-                                <h3 class="fw-400">Sydney</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                            </div>
-                            <div class="location-slide">
-                                <h3 class="fw-400">Los Angeles</h3>
-                                <h3 class="fw-400">New York</h3>
-                                <h3 class="fw-400">Toronto</h3>
-                                <h3 class="fw-400">London</h3>
-                                <h3 class="fw-400">Paris</h3>
-                                <h3 class="fw-400">Rome</h3>
-                                <h3 class="fw-400">Dubai</h3>
-                                <h3 class="fw-400">Tokyo</h3>
-                                <h3 class="fw-400">Sydney</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                                <h3 class="fw-400">test</h3>
-                            </div>
+                        <div class="location-carousel">
+                            <ul class="inner-carousel">
+                                <li class="fw-400">Los Angeles</li>
+                                <li class="fw-400">Toronto</li>
+                                <li class="fw-400">New York</li>
+                                <li class="fw-400">London</li>
+                                <li class="fw-400">Paris</li>
+                                <li class="fw-400">Rome</li>
+                                <li class="fw-400">Dubai</li>
+                                <li class="fw-400">Tokyo</li>
+                                <li class="fw-400">Sydney</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="location-info">
+                    <div class="current-location">
                         <span id="location-name" class="api-element fs-xl fw-700"></span>
                         <span id="location-region" class="api-element fs-m"></span>
                         <span id="location-country" class="api-element fs-m"></span>
                         <span id="location-time" class="api-element fs-m"></span>
                     </div>
-                    <!-- <div class="current-forecast">
+                    <div class="current-weather">
                         <div class="icon-container">
                             <img id="current-icon" src="./content/icons/day/116.svg" />
                             <span id="current-alt" class="api-element fs-m fw-400 grey-400"
@@ -75,108 +54,103 @@
                                 >Real Feel 2.9&deg;C
                             </span>
                         </div>
+                        <div class="details-container">
+                            <div class="current-card">
+                                <span class="material-symbols-rounded fs-xl">north</span>
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">High</p>
+                                    <p id="high" class="api-element fs-m">12&deg;C</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <span class="material-symbols-rounded fs-xl">south</span>
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Low</p>
+                                    <p id="low" class="api-element fs-m">1&deg;C</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/sunrise.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Sunrise</p>
+                                    <p id="sunrise" class="api-element fs-m">05:32 AM</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/sunset.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Sunset</p>
+                                    <p id="sunset" class="api-element fs-m">08:44 PM</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/wind.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Wind</p>
+                                    <p id="wind" class="api-element fs-m">17.5 mph</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/gust.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Gust</p>
+                                    <p id="gust" class="api-element fs-m">34.2 mph</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/uv.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">UV Index</p>
+                                    <p id="uv-index" class="api-element fs-m">6</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/fog.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Visiblity</p>
+                                    <p id="visibility" class="api-element fs-m">6 miles</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/extreme-rain.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Chance of rain</p>
+                                    <p id="chance-of-rain" class="api-element fs-m">9%</p>
+                                </div>
+                            </div>
+                            <div class="current-card">
+                                <img src="./content/icons/other/humidity.svg" />
+                                <div class="fw-500">
+                                    <p class="fs-s grey-400">Avg. Humidity</p>
+                                    <p id="humidity" class="api-element fs-m">61%</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="forecast-details">
-                        <div class="forecast-details-card">
-                            <span class="material-symbols-rounded fs-xl">north</span>
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">High</p>
-                                <p id="high" class="api-element fs-m">12&deg;C</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <span class="material-symbols-rounded fs-xl">south</span>
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Low</p>
-                                <p id="low" class="api-element fs-m">1&deg;C</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/sunrise.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Sunrise</p>
-                                <p id="sunrise" class="api-element fs-m">05:32 AM</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/sunset.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Sunset</p>
-                                <p id="sunset" class="api-element fs-m">08:44 PM</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/wind.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Wind</p>
-                                <p id="wind" class="api-element fs-m">17.5 mph</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/gust.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Gust</p>
-                                <p id="gust" class="api-element fs-m">34.2 mph</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/uv.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">UV Index</p>
-                                <p id="uv-index" class="api-element fs-m">6</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/fog.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Visiblity</p>
-                                <p id="visibility" class="api-element fs-m">6 miles</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/extreme-rain.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Chance of rain</p>
-                                <p id="chance-of-rain" class="api-element fs-m">9%</p>
-                            </div>
-                        </div>
-                        <div class="forecast-details-card">
-                            <img src="./content/icons/other/humidity.svg" />
-                            <div class="fw-500">
-                                <p class="fs-s grey-400">Avg. Humidity</p>
-                                <p id="humidity" class="api-element fs-m">61%</p>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <div class="hourly-forecast">
+                    <div class="forecast-hourly">
                         <h3>Hourly Forecast</h3>
-
-                        <div class="hourly-details-container">
+                        <div class="details-container">
                             <span id="slide-prev" class="slide-button material-symbols-rounded">
                                 chevron_left
                             </span>
                             <span id="slide-next" class="slide-button material-symbols-rounded">
                                 chevron_right
                             </span>
-                            <!-- carousel start -->
                             <div class="wrapper">
-                                <div class="hourly-details-carousel">
-                                    <div class="hourly-details-card">
+                                <div class="hourly-carousel">
+                                    <div class="hourly-card">
                                         <span class="fs-m fw-500">11 PM</span>
                                         <img src="./content/icons/night/116.svg" />
                                         <span class="fs-m fw-500">8&deg;</span>
                                     </div>
                                 </div>
                             </div>
-                            <!-- carousel end -->
                         </div>
                     </div>
-
-                    <div class="seven-day-forecast">
+                    <div class="forecast-weekly">
                         <h3>7-Day Forecast</h3>
-                        <div class="day-details">
-                            <div class="day-details-card">
+                        <div class="details-container">
+                            <div class="day-card">
                                 <div class="date-container">
                                     <span class="fs-s fw-500">Monday</span>
                                     <span class="fs-s fw-300">15/04</span>
