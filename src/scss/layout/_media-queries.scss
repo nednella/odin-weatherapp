@@ -1,5 +1,6 @@
 // Media Queries
 
+// Tablet
 @media only screen and (max-width: 768px) {
     header {
         .search {
@@ -14,12 +15,52 @@
         grid-template-columns: repeat(3, 1fr) !important;
     }
 
+    .day-card > .current-card > div > :first-child {
+        display: none;
+    }
+
     :root {
         --carousel-items: 5;
     }
 }
 
+// Mobile
+@media only screen and (max-width: 560px) {
+    .popular-locations {
+        display: none;
+    }
+
+    .current-location {
+        padding-top: 1em !important;
+    }
+
+    .current-weather {
+        > .icon-container {
+            justify-self: center !important;
+        }
+        #currentTemp {
+            font-size: 4rem !important;
+        }
+        > .details-container {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+    }
+
+    .hourly-card {
+        width: 80% !important;
+    }
+
+    :root {
+        --carousel-items: 3 !important;
+    }
+}
+
+// Additional breakpoints
 @media only screen and (max-width: 640px) {
+    .day-card > .icon-container > span {
+        display: none;
+    }
+
     :root {
         --carousel-items: 4;
     }
