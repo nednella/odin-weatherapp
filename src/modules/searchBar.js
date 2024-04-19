@@ -77,6 +77,8 @@ export default class searchBar {
 
     #handleSearchSubmit(event) {
         if (this.#searchBar.value !== '' && event.key == 'Enter') {
+            this.#searchComponentState('inactive')
+            this.#searchSuggestionState('inactive')
             this.#handleForecast() // API call
         }
     }
@@ -97,7 +99,7 @@ export default class searchBar {
 
     #handleForecast() {
         API.forecast(this.#searchBar.value).then((data) => {
-            UI.renderForecast(data)
+            UI.renderDashboard(data)
         })
         this.#searchBar.value = '' // Clear searchbar
     }
