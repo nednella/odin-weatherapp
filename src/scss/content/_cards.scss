@@ -44,7 +44,7 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 100px 50px 1fr max-content;
-    gap: 2em;
+    gap: 1em;
 
     > * {
         justify-self: center;
@@ -78,8 +78,8 @@
         white-space: nowrap;
 
         img {
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
         }
     }
     .details-container {
