@@ -16,13 +16,10 @@ body {
     min-height: 100%;
     max-width: 100%;
 
-    > header {
-        color: white;
-        background-color: #18182c;
-    }
-    > header,
-    footer {
-        padding: 0 2em;
+    > * {
+        // Allow grid items to shrink beyond their contents' size
+        min-height: 0;
+        min-width: 0;
     }
 }
 
@@ -41,4 +38,13 @@ body {
         'header'
         'content'
         'footer';
+
+    > header {
+        color: white;
+        background-color: #18182c;
+    }
+    > header,
+    footer {
+        padding: 0 2em;
+    }
 }

@@ -1,8 +1,8 @@
 // CSS reset file
-@import 'reset';
+@import 'reset.scss';
 
 // Themes - 1st directory to correctly compile usage of global variables
-@import 'themes/__themes-dir.scss'; 
+@import 'themes/__themes-dir.scss';
 
 // Layout
 @import 'layout/__layout-dir.scss';
