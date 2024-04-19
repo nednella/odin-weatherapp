@@ -30,7 +30,7 @@ export default class UI {
 
     static #initCarousel() {
         const slideButtons = document.querySelectorAll('.slide-button')
-        const carousel = document.querySelector('.hourly-details-carousel')
+        const carousel = document.querySelector('.hourly-carousel')
         const root = document.querySelector('body')
         const rootProperties = getComputedStyle(root)
 
@@ -102,7 +102,7 @@ export default class UI {
         const icon = document.getElementById('current-icon')
         const alt = document.getElementById('current-alt')
         const temp = document.getElementById('current-temp')
-        const realFeel = document.getElementById('current-real-feel')
+        const realFeel = document.getElementById('current-feel')
         const high = document.getElementById('high')
         const low = document.getElementById('low')
         const sunrise = document.getElementById('sunrise')
@@ -143,7 +143,7 @@ export default class UI {
     }
 
     static #populateHourly(forecast) {
-        const container = document.querySelector('.hourly-details-carousel')
+        const container = document.querySelector('.hourly-carousel')
         container.innerHTML = ''
 
         const today = forecast.forecastday[0]
@@ -189,7 +189,7 @@ export default class UI {
         imageIcon = conditions.find((obj) => obj.code == hour.condition.code).icon
 
         // Create and return element
-        const element = createElement('div', { classList: 'hourly-details-card' })
+        const element = createElement('div', { classList: 'hourly-card' })
         element.append(
             createElement('span', {
                 classList: 'fs-m fw-500',
@@ -203,7 +203,7 @@ export default class UI {
     }
 
     static #populateDaily(forecast) {
-        const container = document.querySelector('.day-details')
+        const container = document.querySelector('.forecast-weekly > .details-container')
         container.innerHTML = ''
 
         const days = forecast.forecastday
@@ -227,7 +227,7 @@ export default class UI {
         const imageAlt = condition.day
 
         // Create and return element
-        const element = createElement('div', { classList: 'day-details-card' })
+        const element = createElement('div', { classList: 'day-card' })
 
         const dateContainer = createElement('div', { classList: 'date-container' })
         dateContainer.append(
@@ -272,7 +272,7 @@ export default class UI {
             createElement('p', { classList: 'fs-m', textContent: `${day.daily_chance_of_rain}%` })
         )
 
-        const detailsContainer = createElement('div', { classList: 'forecast-details-card' })
+        const detailsContainer = createElement('div', { classList: 'current-card' })
         detailsContainer.append(
             createElement('img', { src: './content/icons/other/extreme-rain.svg' }),
             detailsSubContainer
@@ -293,7 +293,7 @@ export default class UI {
             document.querySelector('#grid-container').classList.add('homepage--active')
             document.querySelector('section.homepage').classList.add('active')
         }
-        if (section == 'forecast') {
+        if (section == 'dashboard') {
             document.querySelector('#grid-container').classList.add('dashboard--active')
             document.querySelector('section.dashboard').classList.add('active')
         }
@@ -312,19 +312,6 @@ export default class UI {
         // UI.#displaySection('loading')
         // Wrap below in a timeout of 1 second
 
-        // Debugging
-        // console.log(data)
-
-        // const location = data[0].location
-        // const current = data[1].current
-        // const forecast = data[2].forecast
-
-        // this.#setLocalTime(location)
-        // this.#populateLocationInfo(location)
-        // this.#populateForecast(current, forecast)
-        // this.#populateHourly(forecast)
-        // this.#populateDaily(forecast)
-
         API.forecast('New York').then((data) => {
             // Debugging
             console.log(data)
@@ -335,12 +322,12 @@ export default class UI {
 
             this.#setLocalTime(location)
             this.#populateLocationInfo(location)
-            // this.#populateForecast(current, forecast)
+            this.#populateForecast(current, forecast)
             this.#populateHourly(forecast)
-            // this.#populateDaily(forecast)
+            this.#populateDaily(forecast)
             this.#initCarousel()
         })
 
-        UI.#displaySection('forecast')
+        UI.#displaySection('dashboard')
     }
 }
