@@ -22,7 +22,8 @@ export default class UI {
 
     static initApp() {
         UI.#initEventListeners()
-        UI.renderDashboard()
+        UI.#initPopularScroll()
+        UI.renderHome()
     }
 
     static #initEventListeners() {
@@ -139,7 +140,10 @@ export default class UI {
 
     static #populateHourly(forecast) {
         const container = document.querySelector('.forecast-hourly')
-        container.append(new Carousel().getCarousel())
+
+        if (!container.querySelector('.carousel__container')) {
+            container.append(new Carousel().getCarousel())
+        }
 
         const content = container.querySelector('.carousel__content')
         content.innerHTML = ''
@@ -310,21 +314,17 @@ export default class UI {
         // UI.#displaySection('loading')
         // Wrap below in a timeout of 1 second
 
-        API.forecast('Singapore').then((data) => {
-            // Debugging
-            console.log(data)
+        console.log(data)
 
-            const location = data[0].location
-            const current = data[1].current
-            const forecast = data[2].forecast
+        const location = data[0].location
+        const current = data[1].current
+        const forecast = data[2].forecast
 
-            this.#initPopularScroll()
-            this.#setLocalTime(location)
-            this.#populateLocationInfo(location)
-            this.#populateForecast(current, forecast)
-            this.#populateHourly(forecast)
-            this.#populateDaily(forecast)
-        })
+        this.#setLocalTime(location)
+        this.#populateLocationInfo(location)
+        this.#populateForecast(current, forecast)
+        this.#populateHourly(forecast)
+        this.#populateDaily(forecast)
 
         UI.#displaySection('dashboard')
     }
