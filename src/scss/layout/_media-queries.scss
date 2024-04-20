@@ -37,7 +37,7 @@
     }
 }
 
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 540px) {
     .popular-locations {
         display: none;
     }
@@ -70,5 +70,14 @@
 @media only screen and (max-width: 500px) {
     .day-card > .current-card {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .carousel__wrapper {
+        width: 70% !important;
+    }
+    .carousel__container {
+        --carousel-items: 2 !important;
     }
 }
