@@ -1,5 +1,6 @@
 import API from './API.js'
 import searchBar from './searchBar.js'
+import Carousel from './carousel.js'
 import { createElement, parseLocalTime, getHour, getFormattedHour } from './Utilities.js'
 import { conditions } from './conditions.js'
 import { format } from 'date-fns'
@@ -13,7 +14,6 @@ export default class UI {
     }
 
     // TODO: Fix inifinite scroll https://medium.com/@mintpw/how-to-create-infinite-horizontal-scroll-and-hover-pause-with-pure-css-b052caa683bd
-    // TODO: Add custom netflix-style hourly display
     // TODO: Add error handling to API calls
     // TODO: Add a data check before displaying dashboard in case of errors
     // TODO: Add an error section that displays if there is a problem
@@ -21,35 +21,12 @@ export default class UI {
     static #localTime
 
     static initApp() {
+        UI.#initEventListeners()
         UI.renderDashboard()
     }
 
     static #initEventListeners() {
         return
-    }
-
-    static #initCarousel() {
-        const slideButtons = document.querySelectorAll('.slide-button')
-        const carousel = document.querySelector('.hourly-carousel')
-        const root = document.querySelector('body')
-        const rootProperties = getComputedStyle(root)
-
-        function scrollCarousel(button) {
-            const totalItems = carousel.childElementCount
-            const itemsPerPage = parseInt(rootProperties.getPropertyValue('--carousel-items'))
-            const totalPages = Math.ceil(totalItems / itemsPerPage) - 1
-
-            const direction = button.id === 'slide-prev' ? -1 : 1
-            const index = parseInt(rootProperties.getPropertyValue('--carousel-index'))
-            const newIndex = index + direction
-
-            if (newIndex > totalPages || newIndex < 0) return
-            else return root.style.setProperty('--carousel-index', newIndex)
-        }
-
-        slideButtons.forEach((button) => {
-            button.addEventListener('click', () => scrollCarousel(button))
-        })
     }
 
     static #clear() {
@@ -146,8 +123,11 @@ export default class UI {
     }
 
     static #populateHourly(forecast) {
-        const container = document.querySelector('.hourly-carousel')
-        container.innerHTML = ''
+        const container = document.querySelector('.forecast-hourly')
+        container.append(new Carousel().getCarousel())
+
+        const content = container.querySelector('.carousel__content')
+        content.innerHTML = ''
 
         const today = forecast.forecastday[0]
         const tomorrow = forecast.forecastday[1]
@@ -173,7 +153,7 @@ export default class UI {
             const hourToDisplay = todayHours[nextHour]
 
             // Display hour forecast
-            container.appendChild(this.#appendHour(hourToDisplay))
+            content.appendChild(this.#appendHour(hourToDisplay))
 
             // Update hour counters
             nextHour++
@@ -328,7 +308,6 @@ export default class UI {
             this.#populateForecast(current, forecast)
             this.#populateHourly(forecast)
             this.#populateDaily(forecast)
-            this.#initCarousel()
         })
 
         UI.#displaySection('dashboard')

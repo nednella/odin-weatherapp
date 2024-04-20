@@ -1,0 +1,72 @@
+// Carousel
+
+.carousel__container {
+    --carousel-index: 0; // Page of slider items currently displayed
+    --carousel-items: 6; // Number of items per page
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+    .carousel__button {
+        cursor: pointer;
+        user-select: none;
+        height: max-content;
+        width: max-content;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3em;
+        font-weight: 300;
+        color: #000;
+        background-color: transparent;
+    }
+    .carousel__button-left {
+        left: 0;
+    }
+    .carousel__button-right {
+        right: 0;
+    }
+    .carousel__wrapper {
+        width: 90%;
+        overflow: hidden;
+
+        .carousel__content {
+            width: 100%;
+            user-select: none;
+            scrollbar-width: none; // Hide default scrollbar
+
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: calc(100% / var(--carousel-items));
+            transform: translateX(calc(var(--carousel-index) * -100%));
+            transition: 500ms ease-in-out transform;
+
+            > * {
+                width: 90%;
+                justify-self: center;
+            }
+        }
+        .carousel__content::-webkit-scrollbar {
+            display: none; // Hide default scrollbar
+        }
+    }
+    .carousel__progress-bar {
+        display: flex;
+        gap: 0.5em;
+
+        .carousel__progress-element {
+            height: 0.6em;
+            width: 0.6em;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
+        .carousel__progress-element.active {
+            background-color: #18182c;
+            transform: scale(1.2);
+        }
+    }
+}
