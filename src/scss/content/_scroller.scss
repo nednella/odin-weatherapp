@@ -1,0 +1,56 @@
+// Popular locations scroll content
+
+.popular-locations {
+    padding: 0 5%;
+    overflow: hidden;
+    color: white;
+    background-color: #18182c;
+
+    > .scroller__container {
+        padding-bottom: 0.5em;
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        white-space: nowrap;
+        mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+        -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+
+        > .scroller__inner-scroll {
+            width: max-content;
+            display: flex;
+            animation: scroll linear 60s infinite;
+
+            > * {
+                user-select: none;
+                cursor: pointer;
+                margin: 0 1.5em;
+            }
+        }
+    }
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+// .location-scroll:before,
+// .location-scroll:after {
+//     position: absolute;
+//     top: 0;
+//     height: 100%;
+//     width: 8%;
+//     z-index: 2;
+//     content: '';
+// }
+
+// .location-scroll:before {
+//     left: -2px;
+//     background: linear-gradient(to left, rgba(255, 255, 255, 0), #18182c);
+// }
+
+// .location-scroll:after {
+//     right: -2px;
+//     background: linear-gradient(to right, rgba(255, 255, 255, 0), #18182c);
+// }

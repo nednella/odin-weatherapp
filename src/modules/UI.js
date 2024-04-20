@@ -26,6 +26,8 @@ export default class UI {
     }
 
     static #initEventListeners() {
+        // TODO
+        // Popular location event listener -> bubble down to child -> textContent -> UI.renderDashboard(API.call(textContent))
         return
     }
 
@@ -56,6 +58,19 @@ export default class UI {
                 style: 'display: none;',
             })
         )
+    }
+
+    static #initPopularScroll() {
+        const scrollers = document.querySelectorAll('.scroller__container')
+        scrollers.forEach((scroller) => {
+            const innerScroller = scroller.querySelector('.scroller__inner-scroll')
+            const scrollerContent = Array.from(innerScroller.children)
+
+            scrollerContent.forEach((element) => {
+                const duplicateElement = element.cloneNode(true)
+                innerScroller.append(duplicateElement)
+            })
+        })
     }
 
     static #setLocalTime(location) {
@@ -295,7 +310,7 @@ export default class UI {
         // UI.#displaySection('loading')
         // Wrap below in a timeout of 1 second
 
-        API.forecast('New York').then((data) => {
+        API.forecast('Singapore').then((data) => {
             // Debugging
             console.log(data)
 
@@ -303,6 +318,7 @@ export default class UI {
             const current = data[1].current
             const forecast = data[2].forecast
 
+            this.#initPopularScroll()
             this.#setLocalTime(location)
             this.#populateLocationInfo(location)
             this.#populateForecast(current, forecast)
