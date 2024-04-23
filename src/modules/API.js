@@ -1,4 +1,4 @@
-// API
+import UI from './UI'
 
 export default class API {
     constructor() {
@@ -8,25 +8,20 @@ export default class API {
     }
 
     static async forecast(query) {
-        const locationData = []
-
         try {
             const response = await fetch(
-                this.URL + '/forecast.json' + `?key=${this.API_KEY}` + `&q=${query}` + `&days=14`
+                this.URL + '/forecast.json' + `?key=${this.API_KEY}` + `&q=${query}` + `&days=8`
             )
             if (response.ok) {
                 const data = await response.json()
-                locationData.push({ location: data.location })
-                locationData.push({ current: data.current })
-                locationData.push({ forecast: data.forecast })
-            } else throw new Error()
+                return data
+            } else {
+                const error = await response.json()
+                throw error.error
+            }
         } catch (error) {
-            console.log('Error: ', error)
-
-            // TODO: Error handling
+            UI.renderError(error)
         }
-
-        return locationData
     }
 
     static async nearestMatch(query) {
@@ -37,11 +32,12 @@ export default class API {
             if (response.ok) {
                 const data = await response.json()
                 return data
-            } else throw new Error()
+            } else {
+                const error = await response.json()
+                throw error.error
+            }
         } catch (error) {
-            console.log('Error: ', error)
-
-            // TODO: Error handling
+            console.error('nearestMatch API error: ', error)
         }
     }
 
