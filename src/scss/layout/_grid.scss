@@ -29,8 +29,13 @@ body {
     grid-template-areas:
         'content'
         'footer';
+
+    color: white;
+    background-color: #18182c;
 }
 
+#grid-container.loading--active,
+#grid-container.error--active,
 #grid-container.dashboard--active {
     display: grid;
     grid-template-rows: $grid-header-height 1fr $grid-footer-height;
