@@ -17,7 +17,6 @@ export default class searchBar {
         this.#initEventListeners()
     }
 
-    // TODO: Add primary/secondary class styling for search bar to have smaller nav search bar
     // TODO: Add a 'use your current location' search suggestion
 
     #debounce(func, timeout) {
@@ -69,18 +68,21 @@ export default class searchBar {
             this.#searchSuggestionState('active')
             this.#appendSuggestions()
         } else {
-            this.#clearButtonState('inactive')
-            this.#searchComponentState('inactive')
-            this.#searchSuggestionState('inactive')
+            this.#handleSearchClear()
         }
     }
 
     #handleSearchSubmit(event) {
         if (this.#searchBar.value !== '' && event.key == 'Enter') {
-            this.#searchComponentState('inactive')
-            this.#searchSuggestionState('inactive')
-            this.#handleForecast() // API call
+            UI.handleSearch(this.#searchBar.value)
+            this.#handleSearchClear()
         }
+    }
+
+    #handleSearchSuggestionClick(e) {
+        this.#searchBar.focus()
+        UI.handleSearch(this.#searchBar.value)
+        this.#handleSearchClear()
     }
 
     #handleSearchClear() {
@@ -90,22 +92,7 @@ export default class searchBar {
         this.#searchSuggestionState('inactive')
     }
 
-    #handleSearchSuggestionClick(e) {
-        this.#searchBar.focus()
-        this.#searchComponentState('inactive')
-        this.#searchSuggestionState('inactive')
-        this.#handleForecast() // API call
-    }
-
-    #handleForecast() {
-        API.forecast(this.#searchBar.value).then((data) => {
-            UI.renderDashboard(data)
-        })
-        this.#searchBar.value = '' // Clear searchbar
-    }
-
     #appendSuggestions() {
-        // Clear suggestions
         this.#searchSuggestions.textContent = ''
 
         // TODO: Append use your current location
@@ -117,25 +104,22 @@ export default class searchBar {
         this.#debounceNearestMatches()
     }
 
-    #getNearestMatches() {
-        // Fetch nearest matches (up to 10 maximum)
-        API.nearestMatch(this.#searchBar.value).then((data) => {
-            data.forEach((result, index) => {
-                if (index < 10) {
-                    this.#searchSuggestions.appendChild(
-                        // Include region if one exists
-                        this.#createSuggestionItem(
-                            `${result['name'] + ', '}` +
-                                `${
-                                    !result['region'] || result['name'] == result['region']
-                                        ? ''
-                                        : result['region'] + ', '
-                                }` +
-                                `${result['country']}`
-                        )
-                    )
-                }
-            })
+    async #getNearestMatches() {
+        const results = await API.nearestMatch(this.#searchBar.value)
+        this.#handleNearestMatches(results)
+    }
+
+    #handleNearestMatches(nearestMatches) {
+        nearestMatches.forEach((result, index) => {
+            // Up to a maximum of 10 matches
+            if (index < 10) {
+                let suggestion
+                !result.region || result.region === result.name
+                    ? (suggestion = result.name + ', ' + result.country)
+                    : (suggestion = result.name + ', ' + result.region + ', ' + result.country)
+
+                this.#searchSuggestions.appendChild(this.#createSuggestionItem(suggestion))
+            }
         })
     }
 
