@@ -1,7 +1,7 @@
 import API from './API.js'
 import searchBar from './searchBar.js'
 import Carousel from './carousel.js'
-import { createElement, parseLocalTime, getHour, getFormattedHour } from './Utilities.js'
+import { createElement, formatLocalTime, getHour, getFormattedHour } from './Utilities.js'
 import { conditions } from './conditions.js'
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
@@ -25,7 +25,7 @@ export default class UI {
 
     static #initEventListeners() {
         // TODO
-        // Popular location event listener -> bubble down to child -> textContent -> this.renderDashboard(API.call(textContent))
+        // Popular location event listener -> bubble down to child -> textContent -> this.handleSearch(textContent)
         return
     }
 
@@ -91,7 +91,7 @@ export default class UI {
         name.textContent = location.name
         region.textContent = location.region
         country.textContent = location.country
-        time.textContent = parseLocalTime(this.#localTime)
+        time.textContent = formatLocalTime(this.#localTime)
 
         location.name == location.region
             ? region.classList.add('hidden')

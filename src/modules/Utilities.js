@@ -4,7 +4,7 @@ import { format, getHours } from 'date-fns'
 export const createElement = (type, properties = {}) =>
     Object.assign(document.createElement(type), properties)
 
-export const parseLocalTime = (date) => {
+export const formatLocalTime = (date) => {
     date = format(date, 'EEEE, d MMMM yyyy, h:mm aa')
     return date
 }
