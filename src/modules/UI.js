@@ -21,26 +21,29 @@ export default class UI {
     static #localTime
 
     static initApp() {
-        UI.#initEventListeners()
-        UI.#initPopularScroll()
-        UI.renderHome()
+        this.#initEventListeners()
+        this.#initHome()
+        this.#initHeader()
+        this.#initPopularScroll()
+        this.renderHome()
     }
 
     static #initEventListeners() {
         // TODO
-        // Popular location event listener -> bubble down to child -> textContent -> UI.renderDashboard(API.call(textContent))
+        // Popular location event listener -> bubble down to child -> textContent -> this.renderDashboard(API.call(textContent))
         return
     }
 
     static #clear() {
+        this.#localTime = ''
         document.querySelectorAll('.api-element').forEach((element) => (element.textContent = ''))
     }
 
-    static #populateHome() {
+    static #initHome() {
         document.querySelector('section.homepage').append(new searchBar('70%').getSearchBar())
     }
 
-    static #populateHeader() {
+    static #initHeader() {
         const header = document.querySelector('header')
         if (header.textContent) return
 
@@ -67,11 +70,17 @@ export default class UI {
             const innerScroller = scroller.querySelector('.scroller__inner-scroll')
             const scrollerContent = Array.from(innerScroller.children)
 
+            // Duplicate content for infinite loop
             scrollerContent.forEach((element) => {
                 const duplicateElement = element.cloneNode(true)
                 innerScroller.append(duplicateElement)
             })
         })
+    }
+
+    static #populateError(error) {
+        const errorMessage = document.getElementById('error-message')
+        errorMessage.textContent = `${error.message} (${error.code})`
     }
 
     static #setLocalTime(location) {
@@ -295,6 +304,14 @@ export default class UI {
             document.querySelector('#grid-container').classList.add('homepage--active')
             document.querySelector('section.homepage').classList.add('active')
         }
+        if (section == 'loading') {
+            document.querySelector('#grid-container').classList.add('loading--active')
+            document.querySelector('section.loading').classList.add('active')
+        }
+        if (section == 'error') {
+            document.querySelector('#grid-container').classList.add('error--active')
+            document.querySelector('section.error').classList.add('active')
+        }
         if (section == 'dashboard') {
             document.querySelector('#grid-container').classList.add('dashboard--active')
             document.querySelector('section.dashboard').classList.add('active')
@@ -303,29 +320,36 @@ export default class UI {
 
     static renderHome() {
         UI.#clear()
-        UI.#populateHome()
         UI.#displaySection('homepage')
     }
 
-    static renderDashboard(data) {
+    static renderLoading() {
+        this.#clear()
+        this.#displaySection('loading')
+    }
+
+    static renderError(error) {
         UI.#clear()
-        this.#populateHeader()
+        this.#populateError(error)
+        UI.#displaySection('error')
+    }
 
-        // UI.#displaySection('loading')
-        // Wrap below in a timeout of 1 second
-
-        console.log(data)
-
-        const location = data[0].location
-        const current = data[1].current
-        const forecast = data[2].forecast
-
-        this.#setLocalTime(location)
-        this.#populateLocationInfo(location)
-        this.#populateForecast(current, forecast)
-        this.#populateHourly(forecast)
-        this.#populateDaily(forecast)
-
+    static renderDashboard(result) {
+        UI.#clear()
+        this.#setLocalTime(result.location)
+        this.#populateLocationInfo(result.location)
+        this.#populateForecast(result.current, result.forecast)
+        this.#populateHourly(result.forecast)
+        this.#populateDaily(result.forecast)
         UI.#displaySection('dashboard')
+    }
+
+    static async handleSearch(query) {
+        this.renderLoading()
+
+        const result = await API.forecast(query)
+        if (!result) return
+
+        this.renderDashboard(result)
     }
 }
