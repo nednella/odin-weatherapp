@@ -13,11 +13,6 @@ export default class UI {
         }
     }
 
-    // TODO: Fix inifinite scroll https://medium.com/@mintpw/how-to-create-infinite-horizontal-scroll-and-hover-pause-with-pure-css-b052caa683bd
-    // TODO: Add error handling to API calls
-    // TODO: Add a data check before displaying dashboard in case of errors
-    // TODO: Add an error section that displays if there is a problem
-
     static #localTime
 
     static initApp() {
@@ -25,7 +20,7 @@ export default class UI {
         this.#initHome()
         this.#initHeader()
         this.#initPopularScroll()
-        this.renderHome()
+        this.#renderHome()
     }
 
     static #initEventListeners() {
@@ -318,38 +313,38 @@ export default class UI {
         }
     }
 
-    static renderHome() {
-        UI.#clear()
-        UI.#displaySection('homepage')
+    static #renderHome() {
+        this.#clear()
+        this.#displaySection('homepage')
     }
 
-    static renderLoading() {
+    static #renderLoading() {
         this.#clear()
         this.#displaySection('loading')
     }
 
-    static renderError(error) {
-        UI.#clear()
+    static #renderError(error) {
+        this.#clear()
         this.#populateError(error)
-        UI.#displaySection('error')
+        this.#displaySection('error')
     }
 
-    static renderDashboard(result) {
-        UI.#clear()
+    static #renderDashboard(result) {
+        this.#clear()
         this.#setLocalTime(result.location)
         this.#populateLocationInfo(result.location)
         this.#populateForecast(result.current, result.forecast)
         this.#populateHourly(result.forecast)
         this.#populateDaily(result.forecast)
-        UI.#displaySection('dashboard')
+        this.#displaySection('dashboard')
     }
 
     static async handleSearch(query) {
-        this.renderLoading()
+        this.#renderLoading()
 
         const result = await API.forecast(query)
-        if (!result) return
+        if (result.error) return this.#renderError(result.error)
 
-        this.renderDashboard(result)
+        this.#renderDashboard(result)
     }
 }
