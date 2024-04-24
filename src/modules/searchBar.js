@@ -80,9 +80,10 @@ export default class searchBar {
     }
 
     #handleSearchSuggestionClick(e) {
-        this.#searchBar.focus()
-        UI.handleSearch(this.#searchBar.value)
+        const clickedElement = e.target.children[1].textContent
+        UI.handleSearch(clickedElement)
         this.#handleSearchClear()
+        this.#searchBar.focus()
     }
 
     #handleSearchClear() {
