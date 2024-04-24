@@ -24,7 +24,10 @@ export default class UI {
     }
 
     static #initEventListeners() {
+        const logo = document.querySelector('header > .logo')
         const scroller = document.getElementById('scroller')
+
+        logo.addEventListener('click', () => this.#renderHome())
         scroller.addEventListener('click', (e) => this.#handlePopularClick(e))
     }
 
@@ -347,7 +350,7 @@ export default class UI {
         console.log('QUERY: ', query)
 
         this.#renderLoading()
-        const result = await API.forecast(query)
+        const result = await API.forecast(query) // API call
         if (result.error) return this.#renderError(result.error)
         else return this.#renderDashboard(result)
     }
