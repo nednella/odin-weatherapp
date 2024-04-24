@@ -16,17 +16,16 @@ export default class UI {
     static #localTime
 
     static initApp() {
-        this.#initEventListeners()
         this.#initHome()
         this.#initHeader()
         this.#initPopularScroll()
+        this.#initEventListeners()
         this.#renderHome()
     }
 
     static #initEventListeners() {
-        // TODO
-        // Popular location event listener -> bubble down to child -> textContent -> this.handleSearch(textContent)
-        return
+        const scroller = document.getElementById('scroller')
+        scroller.addEventListener('click', (e) => this.#handlePopularClick(e))
     }
 
     static #clear() {
@@ -71,11 +70,6 @@ export default class UI {
                 innerScroller.append(duplicateElement)
             })
         })
-    }
-
-    static #populateError(error) {
-        const errorMessage = document.getElementById('error-message')
-        errorMessage.textContent = `${error.message} (${error.code})`
     }
 
     static #setLocalTime(location) {
@@ -184,6 +178,26 @@ export default class UI {
         }
     }
 
+    static #populateDaily(forecast) {
+        const container = document.querySelector('.forecast-weekly > .details-container')
+        container.innerHTML = ''
+
+        const days = forecast.forecastday
+        days.splice(0, 1) // Remove current day from array
+
+        // Debugging
+        console.log(days)
+
+        days.forEach((day) => {
+            container.appendChild(this.#appendDay(new Date(day.date), day.day))
+        })
+    }
+
+    static #populateError(error) {
+        const errorMessage = document.getElementById('error-message')
+        errorMessage.textContent = `${error.message} (${error.code})`
+    }
+
     static #appendHour(hour) {
         // Debugging
         // console.log(hour)
@@ -206,21 +220,6 @@ export default class UI {
         )
 
         return element
-    }
-
-    static #populateDaily(forecast) {
-        const container = document.querySelector('.forecast-weekly > .details-container')
-        container.innerHTML = ''
-
-        const days = forecast.forecastday
-        days.splice(0, 1) // Remove current day from array
-
-        // Debugging
-        console.log(days)
-
-        days.forEach((day) => {
-            container.appendChild(this.#appendDay(new Date(day.date), day.day))
-        })
     }
 
     static #appendDay(date, day) {
@@ -339,12 +338,17 @@ export default class UI {
         this.#displaySection('dashboard')
     }
 
-    static async handleSearch(query) {
-        this.#renderLoading()
+    static #handlePopularClick(e) {
+        if (e.target.classList.contains('scroller-item')) this.handleSearch(e.target.textContent)
+    }
 
+    static async handleSearch(query) {
+        // Debugging
+        console.log('QUERY: ', query)
+
+        this.#renderLoading()
         const result = await API.forecast(query)
         if (result.error) return this.#renderError(result.error)
-
-        this.#renderDashboard(result)
+        else return this.#renderDashboard(result)
     }
 }
