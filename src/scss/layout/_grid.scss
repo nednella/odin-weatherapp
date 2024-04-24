@@ -32,6 +32,10 @@ body {
 
     color: white;
     background-color: #18182c;
+
+    header {
+        display: none;
+    }
 }
 
 #grid-container.loading--active,
