@@ -33,7 +33,8 @@ body {
     color: white;
     background-color: #18182c;
 
-    header {
+    header,
+    .popular-locations {
         display: none;
     }
 }
@@ -42,13 +43,15 @@ body {
 #grid-container.error--active,
 #grid-container.dashboard--active {
     display: grid;
-    grid-template-rows: $grid-header-height 1fr $grid-footer-height;
+    grid-template-rows: $grid-header-height max-content 1fr $grid-footer-height;
     grid-template-areas:
         'header'
+        'popular'
         'content'
         'footer';
 
-    > header {
+    > header,
+    .popular-locations {
         color: white;
         background-color: #18182c;
     }
