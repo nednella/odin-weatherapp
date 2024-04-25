@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="en" data-theme="light">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +21,7 @@
             <div class="popular-locations">
                 <div class="scroller__container">
                     <ul id="scroller" class="scroller__inner-scroll">
-                        <li class="scroller-item fw-400">San Fransisco</li>
+                        <li class="scroller-item fw-400">San Francisco</li>
                         <li class="scroller-item fw-400">Los Angeles</li>
                         <li class="scroller-item fw-400">Las Vegas</li>
                         <li class="scroller-item fw-400">Miami</li>
@@ -175,5 +175,37 @@
                 ></a>
             </footer>
         </div>
+        <dialog id="settings">
+            <div>
+                <div class="header">
+                    <span id="settingsClose" class="material-symbols-rounded">close</span>
+                </div>
+                <div class="content">
+                    <div class="settings">
+                        <h3>Settings</h3>
+                        <div class="settings-card">
+                            <p class="fw-400">Temperature</p>
+                            <select id="unit-temp" class="settings-card__select">
+                                <option value="C" selected="selected">Celcius (&deg;C)</option>
+                                <option value="F">Fahrenheit (&deg;F)</option>
+                            </select>
+                        </div>
+                        <div class="settings-card">
+                            <p class="fw-400">Wind speed</p>
+                            <select id="unit-temp" class="settings-card__select">
+                                <option value="F" selected="selected">mph</option>
+                                <option value="C">km/h</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="saved">
+                        <h3>Saved Locations</h3>
+                        <div id="saved-locations">
+                            <p>No locations have been saved yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
     </body>
 </html>

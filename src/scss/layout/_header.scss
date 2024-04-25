@@ -12,15 +12,22 @@ header {
     align-items: center;
     justify-content: space-between;
 
+    #settingsOpen {
+        cursor: pointer;
+        position: absolute;
+        font-size: 2em;
+        font-weight: 300;
+    }
+
     .logo {
+        cursor: pointer;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    #searchMenu,
-    #settingsMenu {
-        font-size: 2em;
-        font-weight: 300;
+    .search {
+        position: absolute;
+        right: 32px;
     }
 }

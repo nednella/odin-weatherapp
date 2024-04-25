@@ -88,3 +88,19 @@
         justify-content: center;
     }
 }
+
+.settings-card {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    justify-content: space-between;
+
+    .settings-card__select {
+        text-align: right;
+        background-color: transparent;
+    }
+}
+.settings-card:last-child {
+    border-bottom: none;
+}

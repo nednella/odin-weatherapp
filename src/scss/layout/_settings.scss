@@ -1,0 +1,59 @@
+// Settings modal
+
+#settings {
+    position: fixed;
+    height: 100vh;
+    width: 390px;
+
+    > * {
+        user-select: none;
+        height: 100%;
+        width: 100%;
+        background-color: var(--bg-secondary);
+
+        > * {
+            padding: 0 2em;
+        }
+    }
+
+    .header {
+        height: $grid-header-height;
+        color: var(--font-primary);
+        background-color: var(--bg-primary);
+
+        display: flex;
+        align-items: center;
+
+        > .search {
+            grid-area: search;
+            display: none;
+        }
+
+        > span {
+            grid-area: close;
+            cursor: pointer;
+            font-size: 2em;
+        }
+    }
+
+    .content {
+        > * {
+            padding-top: 2em;
+        }
+        #saved-locations {
+            p {
+                cursor: pointer;
+                padding-top: 12px;
+            }
+        }
+    }
+}
+
+#settings:modal {
+    max-height: 100vh;
+    max-width: 100vh;
+}
+
+#settings::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}

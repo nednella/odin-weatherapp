@@ -18,12 +18,23 @@ export default class UI {
     static initApp() {
         this.#initHome()
         this.#initHeader()
-        this.#initPopularScroll()
+        this.#initSettings()
+        this.#initScroller()
         this.#initEventListeners()
         this.#renderHome()
     }
 
     static #initEventListeners() {
+        // Settings modal listeners
+        const settingsOpen = document.getElementById('settingsOpen')
+        const settingsClose = document.getElementById('settingsClose')
+        const settingsModal = document.getElementById('settings')
+
+        settingsOpen.addEventListener('click', () => this.#toggleSettings())
+        settingsClose.addEventListener('click', () => this.#toggleSettings())
+        settingsModal.addEventListener('click', (e) => this.#handleSettingsInput(e))
+
+        // Page listeners
         const logo = document.querySelector('header > .logo')
         const scroller = document.getElementById('scroller')
 
@@ -46,22 +57,16 @@ export default class UI {
 
         header.append(
             createElement('span', {
-                id: 'settingsMenu',
+                id: 'settingsOpen',
                 classList: 'material-symbols-rounded',
                 textContent: 'menu',
             }),
             createElement('div', { classList: 'logo', textContent: 'Logo' }),
-            new searchBar('270px').getSearchBar(),
-            createElement('span', {
-                id: 'searchMenu',
-                classList: 'material-symbols-rounded',
-                textContent: 'search',
-                style: 'display: none;',
-            })
+            new searchBar('270px').getSearchBar()
         )
     }
 
-    static #initPopularScroll() {
+    static #initScroller() {
         const scrollers = document.querySelectorAll('.scroller__container')
         scrollers.forEach((scroller) => {
             const innerScroller = scroller.querySelector('.scroller__inner-scroll')
@@ -73,6 +78,29 @@ export default class UI {
                 innerScroller.append(duplicateElement)
             })
         })
+    }
+
+    static #initSettings() {
+        const modalHeader = document.querySelector('#settings > div > .header')
+        modalHeader.append(new searchBar('270px').getSearchBar())
+    }
+
+    static #toggleSettings() {
+        const modal = document.getElementById('settings')
+        modal.hasAttribute('open') ? modal.close() : modal.showModal()
+    }
+
+    static #handleSettingsInput(e) {
+        const target = e.target
+        const settings = document.getElementById('settings')
+
+        if (target.nodeName === 'DIALOG') {
+            settings.hasAttribute('open') ? this.#toggleSettings() : null
+        }
+    }
+
+    static #handlePopularClick(e) {
+        if (e.target.classList.contains('scroller-item')) this.handleSearch(e.target.textContent)
     }
 
     static #setLocalTime(location) {
@@ -189,7 +217,7 @@ export default class UI {
         days.splice(0, 1) // Remove current day from array
 
         // Debugging
-        console.log(days)
+        // console.log(days)
 
         days.forEach((day) => {
             container.appendChild(this.#appendDay(new Date(day.date), day.day))
@@ -341,14 +369,7 @@ export default class UI {
         this.#displaySection('dashboard')
     }
 
-    static #handlePopularClick(e) {
-        if (e.target.classList.contains('scroller-item')) this.handleSearch(e.target.textContent)
-    }
-
     static async handleSearch(query) {
-        // Debugging
-        console.log('QUERY: ', query)
-
         this.#renderLoading()
         const result = await API.forecast(query) // API call
         if (result.error) return this.#renderError(result.error)
