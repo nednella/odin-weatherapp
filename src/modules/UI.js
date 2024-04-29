@@ -13,6 +13,7 @@ export default class UI {
         }
     }
 
+    static #lastQuery
     static #localTime
 
     static initApp() {
@@ -24,6 +25,10 @@ export default class UI {
         this.#renderHome()
     }
 
+    static #reload() {
+        this.handleSearch(this.#lastQuery)
+    }
+
     static #initEventListeners() {
         // Settings modal listeners
         const settingsOpen = document.getElementById('settingsOpen')
@@ -32,7 +37,7 @@ export default class UI {
 
         settingsOpen.addEventListener('click', () => this.#toggleSettings())
         settingsClose.addEventListener('click', () => this.#toggleSettings())
-        settingsModal.addEventListener('click', (e) => this.#handleSettingsInput(e))
+        settingsModal.addEventListener('click', (e) => this.#handleSettingsClick(e))
 
         // Page listeners
         const logo = document.querySelector('header > .logo')
@@ -40,6 +45,13 @@ export default class UI {
 
         logo.addEventListener('click', () => this.#renderHome())
         scroller.addEventListener('click', (e) => this.#handlePopularClick(e))
+
+        // Settings
+        const temp = document.getElementById('unit-temp')
+        const wind = document.getElementById('unit-wind')
+
+        temp.addEventListener('change', (e) => this.#handleSettingsChange(e))
+        wind.addEventListener('change', (e) => this.#handleSettingsChange(e))
     }
 
     static #clear() {
@@ -90,7 +102,7 @@ export default class UI {
         modal.hasAttribute('open') ? modal.close() : modal.showModal()
     }
 
-    static #handleSettingsInput(e) {
+    static #handleSettingsClick(e) {
         const target = e.target
         const settings = document.getElementById('settings')
 
@@ -103,8 +115,16 @@ export default class UI {
         if (e.target.classList.contains('scroller-item')) this.handleSearch(e.target.textContent)
     }
 
+    static #handleSettingsChange(e) {
+        e.target.id === 'unit-temp'
+            ? API.setTempUnit(e.target.value)
+            : API.setWindUnit(e.target.value)
+
+        this.#reload()
+    }
+
     static #setLocalTime(location) {
-        this.#localTime = formatInTimeZone(new Date(), location.tz_id, 'yyyy-MM-dd HH:mm')
+        this.#localTime = formatInTimeZone(new Date(), location.timezone, 'yyyy-MM-dd HH:mm')
     }
 
     static #populateLocationInfo(location) {
@@ -143,27 +163,29 @@ export default class UI {
         let imagePath
         current.is_day ? (imagePath = 'day') : (imagePath = 'night')
 
-        const currentCondition = conditions.find((obj) => obj.code == current.condition.code)
+        const currentCondition = conditions.find((obj) => obj.code === current.condition.code)
         const imageIcon = currentCondition.icon
         const imageAlt = currentCondition[imagePath]
 
         icon.src = `./content/icons/${imagePath}/${imageIcon}.svg`
         alt.textContent = imageAlt
-        temp.textContent = `${current.temp_c}\u00B0`
-        realFeel.textContent = `Feels Like ${current.feelslike_c}\u00B0`
+        temp.textContent = `${current.temp}\u00B0`
+        realFeel.textContent = `Feels Like ${current.feel}\u00B0`
 
         // Populate forecasted conditions for today
-        const today = forecast.forecastday[0]
+        const today = forecast.days[0]
 
-        high.textContent = `${today.day.maxtemp_c}\u00B0`
-        low.textContent = `${today.day.mintemp_c}\u00B0`
+        high.textContent = `${today.day.maxtemp}\u00B0`
+        low.textContent = `${today.day.mintemp}\u00B0`
         sunrise.textContent = today.astro.sunrise
         sunset.textContent = today.astro.sunset
-        wind.textContent = `${current.wind_mph} mph`
-        gust.textContent = `${current.gust_mph} mph`
+        wind.textContent = `${current.wind} ${API.getWindUnit()}`
+        gust.textContent = `${current.gust} ${API.getWindUnit()}`
         uv.textContent = current.uv
-        visibility.textContent = `${current.vis_miles} miles`
-        chanceOfRain.textContent = `${today.day.daily_chance_of_rain}%`
+        visibility.textContent = `${current.visibility} ${
+            API.getWindUnit() === 'mph' ? 'miles' : 'km'
+        }`
+        chanceOfRain.textContent = `${today.day.chance_of_rain}%`
         humidity.textContent = `${today.day.avghumidity}%`
     }
 
@@ -177,20 +199,17 @@ export default class UI {
         const content = container.querySelector('.carousel__content')
         content.innerHTML = ''
 
-        const today = forecast.forecastday[0]
-        const tomorrow = forecast.forecastday[1]
+        const today = forecast.days[0]
+        const tomorrow = forecast.days[1]
 
-        let todayHours = today.hour,
-            tomorrowHours = tomorrow.hour,
+        let todayHours = today.hours,
+            tomorrowHours = tomorrow.hours,
             currentHour = getHour(this.#localTime),
             nextHour = currentHour + 1,
             hourCount = 0
 
         // Display the next 24 hours of forecast
         while (hourCount < 24) {
-            // Debugging
-            // console.log('Next hour: ', nextHour)
-
             // Check if end of day is reached
             if (nextHour === 24) {
                 nextHour = 0
@@ -213,7 +232,7 @@ export default class UI {
         const container = document.querySelector('.forecast-weekly > .details-container')
         container.innerHTML = ''
 
-        const days = forecast.forecastday
+        const days = forecast.days
         days.splice(0, 1) // Remove current day from array
 
         // Debugging
@@ -247,7 +266,7 @@ export default class UI {
                 textContent: getFormattedHour(hour.time),
             }),
             createElement('img', { src: `./content/icons/${imagePath}/${imageIcon}.svg` }),
-            createElement('span', { classList: 'fs-m fw-500', textContent: `${hour.temp_c}\u00B0` })
+            createElement('span', { classList: 'fs-m fw-500', textContent: `${hour.temp}\u00B0` })
         )
 
         return element
@@ -282,17 +301,17 @@ export default class UI {
             createElement('span', {
                 classList: 'fs-l fw-500',
                 style: 'grid-area: temp;',
-                textContent: `${Math.round(day.avgtemp_c)}\u00B0`,
+                textContent: `${Math.round(day.avgtemp)}\u00B0`,
             }),
             createElement('span', {
                 classList: 'fs-s fw-400',
                 style: 'grid-area: high;',
-                textContent: `${Math.round(day.maxtemp_c)}\u00B0`,
+                textContent: `${Math.round(day.maxtemp)}\u00B0`,
             }),
             createElement('span', {
                 classList: 'fs-s fw-400',
                 style: 'grid-area: low;',
-                textContent: `${Math.round(day.mintemp_c)}\u00B0`,
+                textContent: `${Math.round(day.mintemp)}\u00B0`,
             })
         )
 
@@ -305,7 +324,7 @@ export default class UI {
         const detailsSubContainer = createElement('div', { classList: 'fw500' })
         detailsSubContainer.append(
             createElement('p', { classList: 'fs-s', textContent: 'Chance of rain' }),
-            createElement('p', { classList: 'fs-m', textContent: `${day.daily_chance_of_rain}%` })
+            createElement('p', { classList: 'fs-m', textContent: `${day.chance_of_rain}%` })
         )
 
         const detailsContainer = createElement('div', { classList: 'current-card' })
@@ -370,8 +389,9 @@ export default class UI {
     }
 
     static async handleSearch(query) {
+        this.#lastQuery = query
         this.#renderLoading()
-        const result = await API.forecast(query) // API call
+        const result = await API.forecast(this.#lastQuery) // API call
         if (result.error) return this.#renderError(result.error)
         else return this.#renderDashboard(result)
     }
