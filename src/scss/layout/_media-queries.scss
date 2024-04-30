@@ -2,7 +2,7 @@
 
 @media only screen and (max-width: 768px) {
     header {
-        #settingsOpen {
+        .settingsOpen {
             right: 32px !important;
         }
         .search {
@@ -11,16 +11,8 @@
     }
 
     #settings {
-        left: calc(100% - 390px) !important;
-
-        .header {
-            display: grid !important;
-            grid-template-columns: 1fr max-content;
-            grid-template-areas: 'search close';
-
-            .search {
-                display: block !important;
-            }
+        .header > .search {
+            display: block !important;
         }
     }
 

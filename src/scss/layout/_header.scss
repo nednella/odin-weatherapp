@@ -8,26 +8,25 @@ header {
     user-select: none;
     background-color: inherit;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr max-content max-content;
+    grid-template-areas: 'logo search settings';
     align-items: center;
-    justify-content: space-between;
-
-    #settingsOpen {
-        cursor: pointer;
-        position: absolute;
-        font-size: 2em;
-        font-weight: 300;
-    }
+    gap: 2em;
 
     .logo {
+        grid-area: logo;
         cursor: pointer;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
     }
 
     .search {
-        position: absolute;
-        right: 32px;
+        grid-area: search;
+    }
+
+    .settingsOpen {
+        grid-area: settings;
+        cursor: pointer;
+        font-size: 2em;
+        font-weight: 300;
     }
 }
