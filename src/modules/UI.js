@@ -31,11 +31,13 @@ export default class UI {
 
     static #initEventListeners() {
         // Settings modal listeners
-        const settingsOpen = document.getElementById('settingsOpen')
+        const settingsOpen = document.querySelectorAll('.settingsOpen')
         const settingsClose = document.getElementById('settingsClose')
         const settingsModal = document.getElementById('settings')
 
-        settingsOpen.addEventListener('click', () => this.#toggleSettings())
+        settingsOpen.forEach((button) =>
+            button.addEventListener('click', () => this.#toggleSettings())
+        )
         settingsClose.addEventListener('click', () => this.#toggleSettings())
         settingsModal.addEventListener('click', (e) => this.#handleSettingsClick(e))
 
@@ -60,7 +62,13 @@ export default class UI {
     }
 
     static #initHome() {
-        document.querySelector('section.homepage').append(new searchBar('70%').getSearchBar())
+        document.querySelector('section.homepage').append(
+            new searchBar('70%').getSearchBar(),
+            createElement('span', {
+                classList: 'settingsOpen material-symbols-rounded',
+                textContent: 'menu',
+            })
+        )
     }
 
     static #initHeader() {
@@ -69,8 +77,7 @@ export default class UI {
 
         header.append(
             createElement('span', {
-                id: 'settingsOpen',
-                classList: 'material-symbols-rounded',
+                classList: 'settingsOpen material-symbols-rounded',
                 textContent: 'menu',
             }),
             createElement('div', { classList: 'logo', textContent: 'Logo' }),

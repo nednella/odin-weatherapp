@@ -10,4 +10,13 @@
     .heading {
         font-size: 24px;
     }
+
+    .settingsOpen {
+        cursor: pointer;
+        position: fixed;
+        top: 19px;
+        right: 32px;
+        font-size: 2em;
+        font-weight: 300;
+    }
 }
