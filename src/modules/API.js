@@ -1,3 +1,5 @@
+import Storage from './localStorage.js'
+
 export default class API {
     constructor() {
         if (this instanceof API) {
@@ -5,8 +7,8 @@ export default class API {
         }
     }
 
-    static #temp_unit = 'C' // Default unit
-    static #wind_unit = 'mph' // Default unit
+    static #temp_unit
+    static #wind_unit
 
     static async nearestMatch(query) {
         try {
@@ -42,26 +44,14 @@ export default class API {
         }
     }
 
-    static setTempUnit(arg) {
-        this.#temp_unit = arg
-        console.log('Temp Unit: ', this.#temp_unit)
-    }
-
-    static setWindUnit(arg) {
-        this.#wind_unit = arg
-        console.log('Wind Unit: ', this.#wind_unit)
-    }
-
-    static getTempUnit() {
-        return this.#temp_unit
-    }
-
-    static getWindUnit() {
-        return this.#wind_unit
+    static #getSettings() {
+        this.#temp_unit = Storage.getTempUnit()
+        this.#wind_unit = Storage.getWindUnit()
     }
 
     static #processResults(data) {
         if (data.error) return data // Dont process if error
+        this.#getSettings() // Check for updated settings
 
         const processedData = {
             current: {

@@ -1,6 +1,7 @@
 import API from './API.js'
 import searchBar from './searchBar.js'
 import Carousel from './carousel.js'
+import Storage from './localStorage.js'
 import { createElement, formatLocalTime, getHour, getFormattedHour } from './Utilities.js'
 import { conditions } from './conditions.js'
 import { format } from 'date-fns'
@@ -26,7 +27,9 @@ export default class UI {
     }
 
     static #reload() {
-        this.handleSearch(this.#lastQuery)
+        // Reload data to match updated settings
+        const active = this.#getActiveSection()
+        if (active === 'dashboard') this.handleSearch(this.#lastQuery)
     }
 
     static #initEventListeners() {
@@ -102,6 +105,17 @@ export default class UI {
     static #initSettings() {
         const modalHeader = document.querySelector('#settings > div > .header')
         modalHeader.append(new searchBar('270px').getSearchBar())
+
+        // Pre-select the active units
+        const tempOptions = Array.from(document.querySelectorAll('#unit-temp > option'))
+        tempOptions.forEach((option) => {
+            if (option.value === Storage.getTempUnit()) option.selected = 'selected'
+        })
+
+        const windOptions = Array.from(document.querySelectorAll('#unit-wind > option'))
+        windOptions.forEach((option) => {
+            if (option.value === Storage.getWindUnit()) option.selected = 'selected'
+        })
     }
 
     static #toggleSettings() {
@@ -124,8 +138,8 @@ export default class UI {
 
     static #handleSettingsChange(e) {
         e.target.id === 'unit-temp'
-            ? API.setTempUnit(e.target.value)
-            : API.setWindUnit(e.target.value)
+            ? Storage.setTempUnit(e.target.value)
+            : Storage.setWindUnit(e.target.value)
 
         this.#reload()
     }
@@ -186,11 +200,11 @@ export default class UI {
         low.textContent = `${today.day.mintemp}\u00B0`
         sunrise.textContent = today.astro.sunrise
         sunset.textContent = today.astro.sunset
-        wind.textContent = `${current.wind} ${API.getWindUnit()}`
-        gust.textContent = `${current.gust} ${API.getWindUnit()}`
+        wind.textContent = `${current.wind} ${Storage.getWindUnit()}`
+        gust.textContent = `${current.gust} ${Storage.getWindUnit()}`
         uv.textContent = current.uv
         visibility.textContent = `${current.visibility} ${
-            API.getWindUnit() === 'mph' ? 'miles' : 'km'
+            Storage.getWindUnit() === 'mph' ? 'miles' : 'km'
         }`
         chanceOfRain.textContent = `${today.day.chance_of_rain}%`
         humidity.textContent = `${today.day.avghumidity}%`
@@ -351,22 +365,34 @@ export default class UI {
             .querySelectorAll('section')
             .forEach((section) => section.classList.remove('active'))
 
-        if (section == 'homepage') {
+        if (section === 'homepage') {
             document.querySelector('#grid-container').classList.add('homepage--active')
             document.querySelector('section.homepage').classList.add('active')
         }
-        if (section == 'loading') {
+        if (section === 'loading') {
             document.querySelector('#grid-container').classList.add('loading--active')
             document.querySelector('section.loading').classList.add('active')
         }
-        if (section == 'error') {
+        if (section === 'error') {
             document.querySelector('#grid-container').classList.add('error--active')
             document.querySelector('section.error').classList.add('active')
         }
-        if (section == 'dashboard') {
+        if (section === 'dashboard') {
             document.querySelector('#grid-container').classList.add('dashboard--active')
             document.querySelector('section.dashboard').classList.add('active')
         }
+    }
+
+    static #getActiveSection() {
+        const sections = document.querySelectorAll('section')
+        let activeSection
+
+        sections.forEach((section) => {
+            if (section.classList.contains('active')) {
+                activeSection = section.classList[0]
+            }
+        })
+        return activeSection
     }
 
     static #renderHome() {
