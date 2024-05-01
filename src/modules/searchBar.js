@@ -96,8 +96,6 @@ export default class searchBar {
     #appendSuggestions() {
         this.#searchSuggestions.textContent = ''
 
-        // TODO: Append use your current location
-
         // Append current search query
         this.#searchSuggestions.appendChild(this.#createSuggestionItem(this.#searchBar.value))
 

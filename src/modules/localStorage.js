@@ -13,14 +13,14 @@ export default class Storage {
         return localStorage.setItem('temp', unit)
     }
 
-    static setWindUnit(unit) {
-        return localStorage.setItem('wind', unit)
-    }
-
     static getTempUnit() {
         let unit = localStorage.getItem('temp')
         if (!unit) unit = 'C' // Default unit
         return unit
+    }
+
+    static setWindUnit(unit) {
+        return localStorage.setItem('wind', unit)
     }
 
     static getWindUnit() {
@@ -30,18 +30,10 @@ export default class Storage {
     }
 
     static setFavourites(arr) {
-        // Debugging
-        console.log('Saving: ', arr)
-
         return localStorage.setItem('favourites', JSON.stringify(arr))
     }
 
     static getFavourites() {
-        // Debugging
-        const items = JSON.parse(localStorage.getItem('favourites'))
-        console.log('Retrieving: ', items)
-        return items
-
-        // return JSON.parse(localStorage.getItem('favourites'))
+        return JSON.parse(localStorage.getItem('favourites'))
     }
 }

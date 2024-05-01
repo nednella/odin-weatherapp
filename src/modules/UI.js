@@ -271,9 +271,6 @@ export default class UI {
         const days = forecast.days
         days.splice(0, 1) // Remove current day from array
 
-        // Debugging
-        // console.log(days)
-
         days.forEach((day) => {
             container.appendChild(this.#appendDay(new Date(day.date), day.day))
         })
@@ -285,9 +282,6 @@ export default class UI {
     }
 
     static #appendHour(hour) {
-        // Debugging
-        // console.log(hour)
-
         // Get image source based on current hours' conditions
         let imagePath, imageIcon
 
@@ -309,9 +303,6 @@ export default class UI {
     }
 
     static #appendDay(date, day) {
-        // Debugging
-        // console.log(date, day)
-
         // Get image source based on days' conditions
         const condition = conditions.find((obj) => obj.code == day.condition.code)
         const imageIcon = condition.icon
