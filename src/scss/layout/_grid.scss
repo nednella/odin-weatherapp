@@ -7,8 +7,7 @@ body {
     font-size: 16px;
     font-weight: 300;
     font-family: 'Poppins', sans-serif;
-    color: #2b2b2b;
-    background-color: #fafafa;
+    background-color: var(--bg-primary);
 }
 
 #grid-container {
@@ -30,8 +29,8 @@ body {
         'content'
         'footer';
 
-    color: white;
-    background-color: #18182c;
+    color: var(--font-primary);
+    background-color: var(--bg-primary);
 
     header,
     .popular-locations {
@@ -42,6 +41,9 @@ body {
 #grid-container.loading--active,
 #grid-container.error--active,
 #grid-container.dashboard--active {
+    color: var(--font-secondary);
+    background-color: var(--bg-secondary);
+
     display: grid;
     grid-template-rows: $grid-header-height max-content 1fr $grid-footer-height;
     grid-template-areas:
@@ -52,8 +54,8 @@ body {
 
     > header,
     .popular-locations {
-        color: white;
-        background-color: #18182c;
+        color: var(--font-primary);
+        background-color: var(--bg-primary);
     }
     > header,
     footer {

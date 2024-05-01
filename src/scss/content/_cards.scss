@@ -19,8 +19,8 @@
 .hourly-card {
     padding: 0.5em;
     border-radius: 0.5em;
-    color: white;
-    background-color: #18182c;
+    color: var(--font-primary);
+    background-color: var(--bg-primary);
 
     display: flex;
     flex-direction: column;
@@ -38,8 +38,8 @@
     width: 100%;
     padding: 1em;
     border-radius: 0.5em;
-    color: white;
-    background-color: #18182c;
+    color: var(--font-primary);
+    background-color: var(--bg-primary);
 
     display: grid;
     grid-auto-flow: column;

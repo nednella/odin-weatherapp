@@ -65,7 +65,7 @@
             background-color: #ccc;
         }
         .carousel__progress-element.active {
-            background-color: #18182c;
+            background-color: var(--bg-primary);
             transform: scale(1.2);
         }
     }

@@ -8,14 +8,14 @@
     }
 }
 
-html[data-theme='day'] {
-    @each $property, $value in $day-theme {
+html[data-theme='light'] {
+    @each $property, $value in $light-theme {
         --#{$property}: #{$value};
     }
 }
 
-html[data-theme='night'] {
-    @each $property, $value in $night-theme {
+html[data-theme='dark'] {
+    @each $property, $value in $dark-theme {
         --#{$property}: #{$value};
     }
 }
