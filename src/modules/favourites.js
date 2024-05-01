@@ -43,7 +43,7 @@ export default class Favourites {
     }
 
     static #createEmptyMessage() {
-        const message = createElement('p', { textContent: 'There are no favourited locations.' })
+        const message = createElement('p', { textContent: 'You have no favourited locations.' })
         return message
     }
 
