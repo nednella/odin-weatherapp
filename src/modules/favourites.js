@@ -94,6 +94,7 @@ export default class Favourites {
         if (item.nodeName === 'P') {
             const clickedElement = item.textContent
             UI.handleSearch(clickedElement)
+            UI.toggleSettings()
         }
 
         if (item.nodeName === 'SPAN') {

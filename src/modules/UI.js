@@ -41,9 +41,9 @@ export default class UI {
         const settingsModal = document.getElementById('settings')
 
         settingsOpen.forEach((button) =>
-            button.addEventListener('click', () => this.#toggleSettings())
+            button.addEventListener('click', () => this.toggleSettings())
         )
-        settingsClose.addEventListener('click', () => this.#toggleSettings())
+        settingsClose.addEventListener('click', () => this.toggleSettings())
         settingsModal.addEventListener('click', (e) => this.#handleSettingsClick(e))
 
         // Page listeners
@@ -125,7 +125,7 @@ export default class UI {
         Favourites.renderList()
     }
 
-    static #toggleSettings() {
+    static toggleSettings() {
         const modal = document.getElementById('settings')
         modal.hasAttribute('open') ? modal.close() : modal.showModal()
     }
@@ -135,7 +135,7 @@ export default class UI {
         const settings = document.getElementById('settings')
 
         if (target.nodeName === 'DIALOG') {
-            settings.hasAttribute('open') ? this.#toggleSettings() : null
+            settings.hasAttribute('open') ? this.toggleSettings() : null
         }
     }
 
