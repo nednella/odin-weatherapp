@@ -83,12 +83,12 @@ export default class UI {
         if (header.textContent) return
 
         header.append(
+            createElement('img', { classList: 'logo', src: '../content/images/logo_small.png' }),
+            new searchBar('270px').getSearchBar(),
             createElement('span', {
                 classList: 'settingsOpen material-symbols-rounded',
                 textContent: 'menu',
-            }),
-            createElement('div', { classList: 'logo', textContent: 'Logo' }),
-            new searchBar('270px').getSearchBar()
+            })
         )
     }
 
