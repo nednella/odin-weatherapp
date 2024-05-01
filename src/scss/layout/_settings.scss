@@ -43,10 +43,21 @@
         > * {
             padding-top: 2em;
         }
-        #saved-locations {
-            p {
-                cursor: pointer;
+
+        #favourites {
+            > * {
                 padding-top: 12px;
+            }
+            .favourite-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1em;
+
+                p,
+                span {
+                    cursor: pointer;
+                }
             }
         }
     }

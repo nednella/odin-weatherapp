@@ -2,12 +2,47 @@
 
 .current-location {
     text-align: center;
+    user-select: none;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
-    > :nth-child(4) {
-        padding-top: 0.5em;
+    > :first-child {
+        margin-bottom: 0.5em;
+    }
+    > :nth-child(5) {
+        margin-top: 0.5em;
+    }
+
+    #favourite-button {
+        cursor: pointer;
+        width: 260px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background-color: rgb(230, 230, 230);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+
+        > * {
+            pointer-events: none;
+        }
+
+        .fa-heart {
+            color: inherit;
+            font-size: 24px;
+        }
+
+        .fa-solid {
+            color: rgb(255, 70, 70);
+        }
+
+        p {
+            padding-top: 2px;
+        }
     }
 }

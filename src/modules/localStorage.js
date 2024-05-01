@@ -28,4 +28,20 @@ export default class Storage {
         if (!unit) unit = 'mph' // Default unit
         return unit
     }
+
+    static setFavourites(arr) {
+        // Debugging
+        console.log('Saving: ', arr)
+
+        return localStorage.setItem('favourites', JSON.stringify(arr))
+    }
+
+    static getFavourites() {
+        // Debugging
+        const items = JSON.parse(localStorage.getItem('favourites'))
+        console.log('Retrieving: ', items)
+        return items
+
+        // return JSON.parse(localStorage.getItem('favourites'))
+    }
 }

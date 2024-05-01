@@ -2,6 +2,7 @@ import API from './API.js'
 import searchBar from './searchBar.js'
 import Carousel from './carousel.js'
 import Storage from './localStorage.js'
+import Favourites from './favourites.js'
 import { createElement, formatLocalTime, getHour, getFormattedHour } from './Utilities.js'
 import { conditions } from './conditions.js'
 import { format } from 'date-fns'
@@ -15,6 +16,7 @@ export default class UI {
     }
 
     static #lastQuery
+    static #location
     static #localTime
 
     static initApp() {
@@ -47,9 +49,11 @@ export default class UI {
         // Page listeners
         const logo = document.querySelector('header > .logo')
         const scroller = document.getElementById('scroller')
+        const favourite = document.getElementById('favourite-button')
 
         logo.addEventListener('click', () => this.#renderHome())
         scroller.addEventListener('click', (e) => this.#handlePopularClick(e))
+        favourite.addEventListener('click', () => Favourites.handleFavouriteButtonClick())
 
         // Settings
         const temp = document.getElementById('unit-temp')
@@ -116,6 +120,9 @@ export default class UI {
         windOptions.forEach((option) => {
             if (option.value === Storage.getWindUnit()) option.selected = 'selected'
         })
+
+        // Render the favourites
+        Favourites.renderList()
     }
 
     static #toggleSettings() {
@@ -142,6 +149,14 @@ export default class UI {
             : Storage.setWindUnit(e.target.value)
 
         this.#reload()
+    }
+
+    static #setLocation(location) {
+        this.#location = `${location.name}, ${location.country}`
+    }
+
+    static getLocation() {
+        return this.#location
     }
 
     static #setLocalTime(location) {
@@ -413,11 +428,13 @@ export default class UI {
 
     static #renderDashboard(result) {
         this.#clear()
+        this.#setLocation(result.location)
         this.#setLocalTime(result.location)
         this.#populateLocationInfo(result.location)
         this.#populateForecast(result.current, result.forecast)
         this.#populateHourly(result.forecast)
         this.#populateDaily(result.forecast)
+        Favourites.updateButton(this.#location)
         this.#displaySection('dashboard')
     }
 
