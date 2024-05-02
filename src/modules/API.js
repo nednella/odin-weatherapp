@@ -7,13 +7,15 @@ export default class API {
         }
     }
 
+    static #URL = 'http://api.weatherapi.com/v1'
+    static #API_KEY = 'e74144e59c65482e933203015240504'
     static #temp_unit
     static #wind_unit
 
     static async nearestMatch(query) {
         try {
             const response = await fetch(
-                this.URL + '/search.json' + `?key=${this.API_KEY}` + `&q=${query}`
+                this.#URL + '/search.json' + `?key=${this.#API_KEY}` + `&q=${query}`
             )
             if (response.ok) {
                 const data = await response.json()
@@ -30,7 +32,7 @@ export default class API {
     static async forecast(query) {
         try {
             const response = await fetch(
-                this.URL + '/forecast.json' + `?key=${this.API_KEY}` + `&q=${query}` + `&days=8`
+                this.#URL + '/forecast.json' + `?key=${this.#API_KEY}` + `&q=${query}` + `&days=8`
             )
             if (response.ok) {
                 const data = await response.json()
