@@ -7,7 +7,7 @@ export default class API {
         }
     }
 
-    static #URL = 'http://api.weatherapi.com/v1'
+    static #URL = 'https://api.weatherapi.com/v1'
     static #API_KEY = 'e74144e59c65482e933203015240504'
     static #temp_unit
     static #wind_unit
