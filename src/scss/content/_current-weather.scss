@@ -26,6 +26,9 @@
     .temp-container {
         grid-area: temp;
         justify-self: start;
+
+        display: grid;
+        grid-template-rows: 1fr max-content;
     }
     .details-container {
         grid-area: details;
