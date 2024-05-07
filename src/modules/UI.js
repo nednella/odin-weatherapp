@@ -15,6 +15,7 @@ export default class UI {
         }
     }
 
+    static #assets = require.context('../content', true, /\.(png|svg)$/)
     static #lastQuery
     static #location
     static #localTime
@@ -83,7 +84,10 @@ export default class UI {
         if (header.textContent) return
 
         header.append(
-            createElement('img', { classList: 'logo', src: '../content/images/logo_small.png' }),
+            createElement('img', {
+                classList: 'logo',
+                src: this.#assets('./images/logo_small.png'),
+            }),
             new searchBar('270px').getSearchBar(),
             createElement('span', {
                 classList: 'settingsOpen material-symbols-rounded',
@@ -195,16 +199,15 @@ export default class UI {
         const uv = document.getElementById('uv-index')
         const visibility = document.getElementById('visibility')
 
-        // Populate current conditions
-        let imagePath
-        current.is_day ? (imagePath = 'day') : (imagePath = 'night')
+        // Get image source based on current hours' conditions
+        let iconPath
+        current.is_day ? (iconPath = 'day') : (iconPath = 'night')
+        const currentConditions = conditions.find((obj) => obj.code === current.condition.code)
+        const iconCode = currentConditions.icon
+        const iconAltText = currentConditions[iconPath]
 
-        const currentCondition = conditions.find((obj) => obj.code === current.condition.code)
-        const imageIcon = currentCondition.icon
-        const imageAlt = currentCondition[imagePath]
-
-        icon.src = `./content/icons/${imagePath}/${imageIcon}.svg`
-        alt.textContent = imageAlt
+        icon.src = this.#assets(`./icons/${iconPath}/${iconCode}.svg`)
+        alt.textContent = iconAltText
         temp.textContent = `${current.temp}\u00B0`
         realFeel.textContent = `Feels Like ${current.feel}\u00B0`
 
@@ -283,10 +286,10 @@ export default class UI {
 
     static #appendHour(hour) {
         // Get image source based on current hours' conditions
-        let imagePath, imageIcon
+        let iconPath, iconCode
 
-        hour.is_day ? (imagePath = 'day') : (imagePath = 'night')
-        imageIcon = conditions.find((obj) => obj.code == hour.condition.code).icon
+        hour.is_day ? (iconPath = 'day') : (iconPath = 'night')
+        iconCode = conditions.find((obj) => obj.code == hour.condition.code).icon
 
         // Create and return element
         const element = createElement('div', { classList: 'hourly-card' })
@@ -295,7 +298,7 @@ export default class UI {
                 classList: 'fs-m fw-500',
                 textContent: getFormattedHour(hour.time),
             }),
-            createElement('img', { src: `./content/icons/${imagePath}/${imageIcon}.svg` }),
+            createElement('img', { src: this.#assets(`./icons/${iconPath}/${iconCode}.svg`) }),
             createElement('span', { classList: 'fs-m fw-500', textContent: `${hour.temp}\u00B0` })
         )
 
@@ -303,10 +306,10 @@ export default class UI {
     }
 
     static #appendDay(date, day) {
-        // Get image source based on days' conditions
-        const condition = conditions.find((obj) => obj.code == day.condition.code)
-        const imageIcon = condition.icon
-        const imageAlt = condition.day
+        // Get image source and alt text based on days' conditions
+        const dayConditions = conditions.find((obj) => obj.code == day.condition.code)
+        const iconCode = dayConditions.icon
+        const imageAltText = dayConditions.day
 
         // Create and return element
         const element = createElement('div', { classList: 'day-card' })
@@ -344,8 +347,8 @@ export default class UI {
 
         const iconContainer = createElement('div', { classList: 'icon-container' })
         iconContainer.append(
-            createElement('img', { src: `./content/icons/day/${imageIcon}.svg` }),
-            createElement('span', { classList: 'fs-s fw-400', textContent: imageAlt })
+            createElement('img', { src: this.#assets(`./icons/day/${iconCode}.svg`) }),
+            createElement('span', { classList: 'fs-s fw-400', textContent: imageAltText })
         )
 
         const detailsSubContainer = createElement('div', { classList: 'fw500' })
@@ -356,7 +359,7 @@ export default class UI {
 
         const detailsContainer = createElement('div', { classList: 'current-card' })
         detailsContainer.append(
-            createElement('img', { src: './content/icons/other/extreme-rain.svg' }),
+            createElement('img', { src: this.#assets('./icons/other/extreme-rain.svg') }),
             detailsSubContainer
         )
 
