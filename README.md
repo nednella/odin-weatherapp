@@ -1,6 +1,6 @@
 The Odin Project: JavaScript Course
 
-Implement a weather app using JS and NPM
+Implement a weather app using JS, SASS and HTML. Built with Webpack.
 
 Based on the lesson(s):
 
